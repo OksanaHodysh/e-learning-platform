@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { CoursesListComponent } from './courses-list/courses-list.component';
 import { CoursesListItemComponent } from './courses-list-item/courses-list-item.component';
 
@@ -9,7 +10,8 @@ import { CoursesListItemComponent } from './courses-list-item/courses-list-item.
     CoursesListItemComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    FormsModule
   ],
   exports: [
     CoursesListComponent

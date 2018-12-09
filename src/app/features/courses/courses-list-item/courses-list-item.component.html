@@ -1,3 +1,26 @@
-<p>
-  courses-list-item works!
-</p>
+<div class="container">
+  <div class="course-img">
+    <img src="assets/img/angular_logo.png">
+  </div>
+  <div class="course-info">
+    <div class="course-header">
+      <h3 class="course-title">{{course.title}}</h3>
+      <div class="course-date">{{course.creationDate}}</div>
+    </div>
+    <div class="course-description">
+      {{course.description}}
+    </div>
+    <div class="course-duration">
+      <span>Duration: {{course.duration}}</span>
+    </div>
+  </div>
+  <div class="course-control">
+    <div class="edit">
+      <button class="edit-btn">Edit</button>
+    </div>
+    <div class="delete">
+      <button class="remove-btn"
+        (click)="deleteCourse()">Delete</button>
+    </div>
+  </div>
+</div>

@@ -1,3 +1,34 @@
 :host {
-    background-color: blueviolet
+    flex-shrink: 0;
+}
+
+.container {
+    display: flex;
+    padding: 5px 1%;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: inset 0 0 10px #40A3FC;
+}
+
+.login-block {
+    display: flex;
+    align-items: center;
+}
+
+.log-out {
+    display: block;
+    border: 1px solid #ffffff;
+    width: 75px;
+    background-color: #0D5786;
+    color: #ffffff;
+    font-size: 1em;
+    padding: 5px;
+    margin-left: 1em;
+    &:hover {
+        border: 1px solid #0D5786;
+        color: #0D5786;
+        font-weight: bold;
+        background-color: #ffffff;
+        cursor: pointer;
+    }
 }
