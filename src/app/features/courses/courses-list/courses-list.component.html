@@ -2,7 +2,7 @@
   <div class="edit">
     <div class="search">
       <input type="text"
-        class=search-field
+        class="search-field"
         placeholder='Search...'
         [(ngModel)]="searchCourse">
       <div class="search-btn" (click)="findCourses()">
@@ -18,7 +18,7 @@
     <app-courses-list-item 
       class="list-item"
       *ngFor="let course of courses | slice: 0: limit"
-      [course]=course
+      [course]="course"
       (removeCourse)="deleteCourse($event)">
     </app-courses-list-item>
   </div>

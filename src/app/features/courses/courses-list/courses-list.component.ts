@@ -87,12 +87,14 @@ export class CoursesListComponent implements OnInit {
     this.step = this.limit;
   }
 
-  public findCourses(): void {
+  public findCourses(): Array<Course> {
     console.log(this.searchCourse);
+    return this.courses.filter((course) => course.title.indexOf(this.searchCourse) >= 0);
   }
 
-  public deleteCourse(courseId: number): void {
+  public deleteCourse(courseId: number): Array<Course> {
     console.log(courseId);
+    return this.courses.splice(this.courses.indexOf(this.courses.find((item) => item.id === courseId)), 1);
   }
 
   public loadMore(): void {
