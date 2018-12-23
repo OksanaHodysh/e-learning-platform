@@ -5,22 +5,31 @@ import { By } from '@angular/platform-browser';
 import { CoursesListComponent } from './courses-list.component';
 import { CoursesListItemComponent } from '../courses-list-item/courses-list-item.component';
 import { Course } from '../course.model';
+import { OrderByPipe } from '../pipes/order-by.pipe';
+import { DurationPipe } from '../pipes/duration.pipe';
+import { PaintBorderDirective } from '../directives/paint-border.directive';
+import { FilterPipe } from '../pipes/filter.pipe';
 
 // Approach 2: Stand-alone testing
 describe('CoursesListComponent', () => {
   let component: CoursesListComponent;
   let fixture: ComponentFixture<CoursesListComponent>;
+  let pipe: FilterPipe;
   let searchResult: Array<Course>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
         CoursesListComponent,
-        CoursesListItemComponent
+        CoursesListItemComponent,
+        PaintBorderDirective,
+        OrderByPipe,
+        DurationPipe
       ],
       imports: [
         FormsModule
-      ]
+      ],
+      providers: [FilterPipe]
     })
     .compileComponents();
   }));
@@ -28,11 +37,13 @@ describe('CoursesListComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(CoursesListComponent);
     component = fixture.debugElement.componentInstance;
+    pipe = TestBed.get(FilterPipe);
     searchResult = [{
       id: 6,
       title: 'Testing Angular 4 Apps with Jasmine',
       creationDate: '03.05.2018',
-      duration: '2h 12min',
+      duration: '172',
+      topRated: false,
       description: `In this course, author of several best selling courses on Udemy takes you from the ground and gives you a
       solid foundation to write automated tests for your Angular apps. Whether you're an absolute beginner or have some familiarity
       with automated testing, this course will give you all the necessary skills to write automated tests for your Angular apps. `
@@ -49,21 +60,21 @@ describe('CoursesListComponent', () => {
     expect(component.limit).toBe(5);
     expect(component.step).toBe(5);
     expect(component.searchCourse).toBe('');
-    expect(component.courses[0].id).toBe(1);
+    expect(component.searchedCourses[0].id).toBe(7);
   });
 
   it('should find courses if there are any', () => {
     const searchBtn = fixture.debugElement.query(By.css('.search-btn'));
     component.searchCourse = 'Jasmine';
     searchBtn.triggerEventHandler('click', null);
-    expect(component.findCourses()[0].title).toEqual(searchResult[0].title);
+    expect(component.searchedCourses[0].title).toEqual(searchResult[0].title);
   });
 
   it('should return emty array if no matches found', () => {
     const searchBtn = fixture.debugElement.query(By.css('.search-btn'));
     component.searchCourse = 'React';
     searchBtn.triggerEventHandler('click', null);
-    expect(component.findCourses()).toEqual([]);
+    expect(component.searchedCourses).toEqual([]);
   });
 
   it('should load more courses if the end was not reached', () => {
@@ -88,62 +99,3 @@ describe('CoursesListComponent', () => {
     expect(result).toBeUndefined();
   });
 });
-
-// Approach 1: Class testing
-// describe('CoursesListComponent', () => {
-//   let component: CoursesListComponent;
-//   let searchResult: Array<Course>;
-
-//   beforeEach(() => {
-//     component = new CoursesListComponent();
-//     searchResult = [{
-//       id: 6,
-//       title: 'Testing Angular 4 Apps with Jasmine',
-//       creationDate: '03.05.2018',
-//       duration: '2h 12min',
-//       description: `In this course, author of several best selling courses on Udemy takes you from the ground and gives you a
-//       solid foundation to write automated tests for your Angular apps. Whether you're an absolute beginner or have some familiarity
-//       with automated testing, this course will give you all the necessary skills to write automated tests for your Angular apps. `
-//     }];
-//     component.ngOnInit();
-//   });
-
-//   it('should create', () => {
-//     expect(component).toBeTruthy();
-//   });
-
-//   it('should initialize data properly', () => {
-//     expect(component.limit).toBe(5);
-//     expect(component.step).toBe(5);
-//     expect(component.searchCourse).toBe('');
-//     expect(component.courses[0].id).toBe(1);
-//   });
-
-//   it('should find courses if there are any', () => {
-//     component.searchCourse = 'Jasmine';
-//     expect(component.findCourses()[0].title).toEqual(searchResult[0].title);
-//   });
-
-//   it('should return emty array if no matches found', () => {
-//     component.searchCourse = 'React';
-//     expect(component.findCourses()).toEqual([]);
-//   });
-
-//   it('should load more courses if the end was not reached', () => {
-//     component.loadMore();
-//     expect(component.limit).toBe(10);
-//   });
-
-//   it('should not load more courses if the end was reached', () => {
-//     component.loadMore();
-//     component.loadMore();
-//     expect(component.limit).toBe(10);
-//   });
-
-//   it('should delete item by its id', () => {
-//     const courseId = 5;
-//     component.deleteCourse(courseId);
-//     const result = component.courses.find(({id}) => id === courseId);
-//     expect(result).toBeUndefined();
-//   });
-// });

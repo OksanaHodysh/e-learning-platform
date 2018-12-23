@@ -4,6 +4,7 @@ interface CoursesListItem {
     creationDate: string;
     duration: string;
     description: string;
+    topRated: boolean;
 }
 
 export class Course implements CoursesListItem {
@@ -12,4 +13,5 @@ export class Course implements CoursesListItem {
     creationDate: string;
     duration: string;
     description: string;
+    topRated: boolean;
 }
