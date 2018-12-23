@@ -1,8 +1,8 @@
-<div class="container">
+<div class="course container">
   <div class="course-img">
     <img src="assets/img/angular_logo.png">
   </div>
-  <div class="course-info">
+  <div class="course-info" *ngIf="course">
     <div class="course-header">
       <h3 class="course-title">{{course.title}}</h3>
       <div class="course-date">{{course.creationDate}}</div>
