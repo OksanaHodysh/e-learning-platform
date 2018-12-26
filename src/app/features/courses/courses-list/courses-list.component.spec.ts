@@ -7,7 +7,6 @@ import { CoursesListItemComponent } from '../courses-list-item/courses-list-item
 import { Course } from '../course.model';
 import { OrderByPipe } from '../pipes/order-by.pipe';
 import { DurationPipe } from '../pipes/duration.pipe';
-import { PaintBorderDirective } from '../directives/paint-border.directive';
 import { FilterPipe } from '../pipes/filter.pipe';
 
 // Approach 2: Stand-alone testing
@@ -22,7 +21,6 @@ describe('CoursesListComponent', () => {
       declarations: [
         CoursesListComponent,
         CoursesListItemComponent,
-        PaintBorderDirective,
         OrderByPipe,
         DurationPipe
       ],
@@ -51,6 +49,12 @@ describe('CoursesListComponent', () => {
     component.ngOnInit();
     fixture.detectChanges();
   });
+
+  function getNewDate(numOfDays: number): string {
+    const today = new Date();
+    const tomorrow = new Date();
+    return new Date(tomorrow.setDate(today.getDate() + numOfDays)).toString();
+  }
 
   it('should create', () => {
     expect(component).toBeTruthy();
@@ -97,5 +101,20 @@ describe('CoursesListComponent', () => {
     listItem.removeCourse.emit(courseId);
     const result = component.courses.find(({id}) => id === courseId);
     expect(result).toBeUndefined();
+  });
+
+  it('should define proper background color for upgoing course', () => {
+    const result = component.defineBorderColor(getNewDate(1));
+    expect(result).toBe('blue');
+  });
+
+  it('should define proper background color for fresh course', () => {
+    const result = component.defineBorderColor(getNewDate(-3));
+    expect(result).toBe('green');
+  });
+
+  it('should define proper background color for old course', () => {
+    const result = component.defineBorderColor(getNewDate(-15));
+    expect(result).toBe('transparent');
   });
 });
