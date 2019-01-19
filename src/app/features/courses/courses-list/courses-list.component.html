@@ -14,7 +14,7 @@
     </div>
   </div>
   <div class="matches">{{searchedCourses.length}} COURSES FOUND</div>
-  <div *ngIf="searchedCourses.length; else noCourses">
+  <ng-container *ngIf="searchedCourses.length; else noCourses">
     <div class="courses-list">
       <app-courses-list-item
         class="list-item"
@@ -31,7 +31,7 @@
         LOAD MORE
       </button>
     </div>
-  </div>
+  </ng-container>
   <ng-template #noCourses>
     <div class="no-results">
       NO DATA. FEEL FREE TO ADD NEW COURSE

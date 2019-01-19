@@ -21,7 +21,7 @@ export class CoursesListComponent implements OnInit {
       {
         id: 1,
         title: 'Angular 7 - The Complete Guide',
-        creationDate: '01/01/2019',
+        creationDate: '01/29/2019',
         duration: '1688',
         topRated: true,
         description: `This course starts from scratch, you neither need to know Angular 1 nor Angular 2!
@@ -32,7 +32,7 @@ export class CoursesListComponent implements OnInit {
       {
         id: 2,
         title: 'The Complete Angular Course: Beginner to Advanced',
-        creationDate: '11/01/2018',
+        creationDate: '12/01/2018',
         duration: '1773',
         topRated: true,
         description: `Right from the beginning, you'll jump in and build your first Angular app within minutes.
@@ -42,7 +42,7 @@ export class CoursesListComponent implements OnInit {
       {
         id: 3,
         title: 'Angular Crash Course for Busy Developers',
-        creationDate: '12/22/2018',
+        creationDate: '01/20/2019',
         duration: '620',
         topRated: false,
         description: `In  just 10 hours, you can learn all the essential Angular concepts! You can simply dedicate
@@ -73,7 +73,7 @@ export class CoursesListComponent implements OnInit {
       {
         id: 6,
         title: 'Testing Angular 4 Apps with Jasmine',
-        creationDate: '12/01/2018',
+        creationDate: '01/15/2019',
         duration: '132',
         topRated: false,
         description: `In this course, author of several best selling courses on Udemy takes you from the ground and gives you a

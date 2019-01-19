@@ -1,4 +1,4 @@
-import { Directive, Input, ElementRef, Renderer2, OnInit, HostBinding } from '@angular/core';
+import { Directive, Input, OnInit, HostBinding } from '@angular/core';
 
 @Directive({
   selector: '[appPaintBorder]'
