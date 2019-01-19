@@ -112,4 +112,19 @@ export class CoursesListComponent implements OnInit {
       this.limit += this.step;
     }
   }
+
+  public defineBorderColor(startDate: string): string {
+    const dayDuration = 24 * 60 * 60 * 1000;
+    const courseDate = new Date(startDate);
+    const diff = Math.floor((Date.now() - courseDate.getTime()) / dayDuration);
+    let result = 'transparent';
+
+    if (diff < 0) {
+      result = 'blue';
+    } else if (diff <= 14) {
+      result = 'green';
+    }
+
+    return result;
+  }
 }

@@ -17,11 +17,10 @@
   <ng-container *ngIf="searchedCourses.length; else noCourses">
     <div class="courses-list">
       <app-courses-list-item
-        class="list-item"
         *ngFor="let course of searchedCourses | orderBy: 'creationDate' | slice: 0: limit"
         [course]="course"
-        (removeCourse)="deleteCourse($event)"
-        [appPaintBorder]="course.creationDate">
+        [ngClass]="['list-item', 'list-item-' + defineBorderColor(course.creationDate)]"
+        (removeCourse)="deleteCourse($event)">
       </app-courses-list-item>
     </div>
     <div class="load-more"

@@ -92,3 +92,13 @@
     color: #ffffff;
     padding: 0.5em;
 }
+
+.list-item {
+    border: 1px solid transparent;
+  &-blue {
+      border-color: blue;
+    }
+  &-green {
+      border-color: green;
+    }
+}
