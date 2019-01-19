@@ -62,7 +62,7 @@ export class CoursesListComponent implements OnInit {
       {
         id: 5,
         title: 'Angular Front To Back',
-        creationDate: '12/05/2018',
+        creationDate: '01/15/2019',
         duration: '685',
         topRated: false,
         description: `This course was crafted to benefit absolutely any level of developer. We will start from scratch and
@@ -73,7 +73,7 @@ export class CoursesListComponent implements OnInit {
       {
         id: 6,
         title: 'Testing Angular 4 Apps with Jasmine',
-        creationDate: '01/15/2019',
+        creationDate: '02/15/2019',
         duration: '132',
         topRated: false,
         description: `In this course, author of several best selling courses on Udemy takes you from the ground and gives you a
@@ -111,20 +111,5 @@ export class CoursesListComponent implements OnInit {
     if (this.limit < this.courses.length) {
       this.limit += this.step;
     }
-  }
-
-  public defineBorderColor(startDate: string): string {
-    const dayDuration = 24 * 60 * 60 * 1000;
-    const courseDate = new Date(startDate);
-    const diff = Math.floor((Date.now() - courseDate.getTime()) / dayDuration);
-    let result = 'transparent';
-
-    if (diff < 0) {
-      result = 'blue';
-    } else if (diff <= 14) {
-      result = 'green';
-    }
-
-    return result;
   }
 }
