@@ -13,20 +13,28 @@
       <button class="add-btn">Add Course</button>
     </div>
   </div>
-  <div class="matches">{{courses.length}} COURSES FOUND</div>
-  <div class="courses-list">
-    <app-courses-list-item 
-      class="list-item"
-      *ngFor="let course of courses | slice: 0: limit"
-      [course]="course"
-      (removeCourse)="deleteCourse($event)">
-    </app-courses-list-item>
-  </div>
-  <div class="load-more"
-    *ngIf="limit <= courses.length">
-    <button class="load-btn"
-      (click)="loadMore()">
-      LOAD MORE
-    </button>
-  </div>
+  <div class="matches">{{searchedCourses.length}} COURSES FOUND</div>
+  <ng-container *ngIf="searchedCourses.length; else noCourses">
+    <div class="courses-list">
+      <app-courses-list-item
+        class="list-item"
+        *ngFor="let course of searchedCourses | orderBy: 'creationDate' | slice: 0: limit"
+        [course]="course"
+        (removeCourse)="deleteCourse($event)"
+        [appPaintBorder]="course.creationDate">
+      </app-courses-list-item>
+    </div>
+    <div class="load-more"
+      *ngIf="limit <= searchedCourses.length">
+      <button class="load-btn"
+        (click)="loadMore()">
+        LOAD MORE
+      </button>
+    </div>
+  </ng-container>
+  <ng-template #noCourses>
+    <div class="no-results">
+      NO DATA. FEEL FREE TO ADD NEW COURSE
+    </div>
+  </ng-template>
 </div>

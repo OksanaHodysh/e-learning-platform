@@ -1,6 +1,7 @@
 :host {
     display: block;
     margin: 15px 0;
+    border: 1px solid transparent;
 }
 
 .container {
@@ -79,4 +80,14 @@
 
 .course-title {
     color: #0D5786;
+    position: relative;
+    padding-right: 1.25em;
+}
+
+.rating-star {
+    color: yellow;
+    position: absolute;
+    font-size: 1.25em;
+    top: -0.25em;
+    right: 0;
 }
