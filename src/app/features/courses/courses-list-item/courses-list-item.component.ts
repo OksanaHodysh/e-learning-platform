@@ -9,6 +9,7 @@ import { Course } from '../course.model';
 export class CoursesListItemComponent implements OnInit {
   @Input() course: Course;
   @Output() removeCourse = new EventEmitter<number>();
+  @Output() updateCourse = new EventEmitter<number>();
 
   constructor() { }
 
@@ -17,6 +18,10 @@ export class CoursesListItemComponent implements OnInit {
 
   public deleteCourse(): void {
     this.removeCourse.emit(this.course.id);
+  }
+
+  public editCourse(): void {
+    this.updateCourse.emit(this.course.id);
   }
 
 }

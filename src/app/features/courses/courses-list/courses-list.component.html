@@ -10,7 +10,8 @@
       </div>
     </div>
     <div class="add">
-      <button class="add-btn">Add Course</button>
+      <button class="add-btn"
+        (click)="addCourse()">Add Course</button>
     </div>
   </div>
   <div class="matches">{{searchedCourses.length}} COURSES FOUND</div>
@@ -20,12 +21,13 @@
         class="list-item"
         *ngFor="let course of searchedCourses | orderBy: 'creationDate' | slice: 0: limit"
         [course]="course"
+        (updateCourse)="editCourse($event)"
         (removeCourse)="deleteCourse($event)"
         [appPaintBorder]="course.creationDate">
       </app-courses-list-item>
     </div>
     <div class="load-more"
-      *ngIf="limit <= searchedCourses.length">
+      *ngIf="limit < searchedCourses.length">
       <button class="load-btn"
         (click)="loadMore()">
         LOAD MORE

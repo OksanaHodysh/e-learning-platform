@@ -1,9 +1,13 @@
 <div class="container">
   <div class="logo">
-      <img src="assets/img/logo.png">
+      <a routerLink="/"><img src="assets/img/logo.png"></a>
   </div>
   <div class="login-block">
-    <div class="logged-in">Logged In</div>
-    <button class="log-out">Log Out</button>
+    <div class="log-in">
+      <a routerLink="/login">Log In</a>
+    </div>
+    <button class="log-out" (click)=logOut()>
+      <a routerLink="/login">Log Out</a>
+    </button>
   </div>
 </div>

@@ -7,6 +7,7 @@ import { PaintBorderDirective } from './directives/paint-border.directive';
 import { DurationPipe } from './pipes/duration.pipe';
 import { OrderByPipe } from './pipes/order-by.pipe';
 import { FilterPipe } from './pipes/filter.pipe';
+import { CourseService } from './services/course.service';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { FilterPipe } from './pipes/filter.pipe';
     CoursesListComponent
   ],
   providers: [
-    FilterPipe
+    FilterPipe,
+    CourseService
   ]
 })
 export class CoursesModule { }

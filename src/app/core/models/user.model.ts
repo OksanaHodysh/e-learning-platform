@@ -9,3 +9,9 @@ export class User implements AppUser {
     firstName: string;
     lastName: string;
 }
+
+export interface LoggedInUser {
+    email: string;
+    password: string;
+    token: string;
+}

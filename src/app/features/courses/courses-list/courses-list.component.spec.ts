@@ -9,15 +9,23 @@ import { Course } from '../course.model';
 import { OrderByPipe } from '../pipes/order-by.pipe';
 import { DurationPipe } from '../pipes/duration.pipe';
 import { FilterPipe } from '../pipes/filter.pipe';
+import { CourseService } from '../services/course.service';
+import { courses } from '../services/courses.mock';
 
-// Approach 2: Stand-alone testing
 describe('CoursesListComponent', () => {
   let component: CoursesListComponent;
   let fixture: ComponentFixture<CoursesListComponent>;
   let pipe: FilterPipe;
   let searchResult: Array<Course>;
+  let serviceSpy: jasmine.SpyObj<CourseService>;
 
   beforeEach(async(() => {
+    const spy = jasmine.createSpyObj('CourseService', [
+      'getCourses',
+      'createCourse',
+      'updateCourse',
+      'removeCourse'
+    ]);
     TestBed.configureTestingModule({
       declarations: [
         CoursesListComponent,
@@ -29,7 +37,10 @@ describe('CoursesListComponent', () => {
       imports: [
         FormsModule
       ],
-      providers: [FilterPipe]
+      providers: [
+        FilterPipe,
+        {provide: CourseService, useValue: spy}
+      ]
     })
     .compileComponents();
   }));
@@ -37,6 +48,7 @@ describe('CoursesListComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(CoursesListComponent);
     component = fixture.debugElement.componentInstance;
+    serviceSpy = TestBed.get(CourseService);
     pipe = TestBed.get(FilterPipe);
     searchResult = [{
       id: 6,
@@ -48,6 +60,7 @@ describe('CoursesListComponent', () => {
       solid foundation to write automated tests for your Angular apps. Whether you're an absolute beginner or have some familiarity
       with automated testing, this course will give you all the necessary skills to write automated tests for your Angular apps. `
     }];
+    serviceSpy.getCourses.and.returnValue(courses);
     component.ngOnInit();
     fixture.detectChanges();
   });
@@ -60,7 +73,8 @@ describe('CoursesListComponent', () => {
     expect(component.limit).toBe(5);
     expect(component.step).toBe(5);
     expect(component.searchCourse).toBe('');
-    expect(component.searchedCourses[0].id).toBe(7);
+    expect(component.searchedCourses).toBe(courses);
+    expect(serviceSpy.getCourses).toHaveBeenCalled();
   });
 
   it('should find courses if there are any', () => {
@@ -77,6 +91,17 @@ describe('CoursesListComponent', () => {
     expect(component.searchedCourses).toEqual([]);
   });
 
+  it('should add a new course', () => {
+    const addBtn = fixture.debugElement.query(By.css('.add-btn'));
+    addBtn.triggerEventHandler('click', null);
+    expect(serviceSpy.createCourse).toHaveBeenCalled();
+  });
+
+  it('should edit an existing course', () => {
+    component.editCourse(3);
+    expect(serviceSpy.updateCourse).toHaveBeenCalledWith(3);
+  });
+
   it('should load more courses if the end was not reached', () => {
     const loadMoreBtn = fixture.debugElement.query(By.css('.load-btn'));
     loadMoreBtn.triggerEventHandler('click', null);
@@ -90,12 +115,23 @@ describe('CoursesListComponent', () => {
     expect(component.limit).toBe(10);
   });
 
-  it('should delete item by its id', () => {
+  it('should not delete item by its id if deletion not confirmed', () => {
+    spyOn(window, 'confirm').and.returnValue(false);
+
     const courseId = 5;
     const listItemEl = fixture.debugElement.query(By.css('.list-item'));
     const listItem = listItemEl.componentInstance;
     listItem.removeCourse.emit(courseId);
-    const result = component.courses.find(({id}) => id === courseId);
-    expect(result).toBeUndefined();
+    expect(serviceSpy.removeCourse).not.toHaveBeenCalled();
+  });
+
+  it('should delete item by its id if deletion confirmed', () => {
+    spyOn(window, 'confirm').and.returnValue(true);
+
+    const courseId = 5;
+    const listItemEl = fixture.debugElement.query(By.css('.list-item'));
+    const listItem = listItemEl.componentInstance;
+    listItem.removeCourse.emit(courseId);
+    expect(serviceSpy.removeCourse).toHaveBeenCalledWith(5);
   });
 });
