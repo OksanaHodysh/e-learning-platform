@@ -3,9 +3,7 @@ import { Injectable } from '@angular/core';
 import { Course } from '../course.model';
 import { courses } from './courses.mock';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class CourseService {
   public getCourses(): Array<Course> {
     return courses;

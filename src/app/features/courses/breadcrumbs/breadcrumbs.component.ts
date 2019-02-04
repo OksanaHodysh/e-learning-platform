@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-breadcrumbs',
@@ -8,13 +7,9 @@ import { AuthService } from '../../services/auth.service';
 })
 export class BreadcrumbsComponent implements OnInit {
 
-  constructor(private auth: AuthService) { }
+  constructor() { }
 
   ngOnInit() {
-  }
-
-  public isAuthenticated(): boolean {
-    return this.auth.isAuthenticated();
   }
 
 }

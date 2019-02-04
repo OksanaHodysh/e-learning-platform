@@ -10,7 +10,7 @@ export class LoginComponent implements OnInit {
   public userEmail: string;
   public userPassword: string;
 
-  constructor(private auth: AuthService) { }
+  constructor(private authService: AuthService) { }
 
   ngOnInit() {
     this.userEmail = '';
@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
   public logIn(): void {
     if (this.userEmail && this.userPassword) {
       console.log('Logged In Successfully');
-      this.auth.login(this.userEmail, this.userPassword);
+      this.authService.login(this.userEmail, this.userPassword);
     }
   }
 

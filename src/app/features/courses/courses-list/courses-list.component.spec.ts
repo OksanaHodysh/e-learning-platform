@@ -4,6 +4,7 @@ import { By } from '@angular/platform-browser';
 
 import { CoursesListComponent } from './courses-list.component';
 import { CoursesListItemComponent } from '../courses-list-item/courses-list-item.component';
+import { BreadcrumbsComponent } from '../breadcrumbs/breadcrumbs.component';
 import { PaintBorderDirective } from '../directives/paint-border.directive';
 import { Course } from '../course.model';
 import { OrderByPipe } from '../pipes/order-by.pipe';
@@ -30,6 +31,7 @@ describe('CoursesListComponent', () => {
       declarations: [
         CoursesListComponent,
         CoursesListItemComponent,
+        BreadcrumbsComponent,
         PaintBorderDirective,
         OrderByPipe,
         DurationPipe
