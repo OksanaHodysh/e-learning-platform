@@ -12,6 +12,7 @@ import { DurationPipe } from '../pipes/duration.pipe';
   <app-courses-list-item
     class="list-item"
     [course]=course
+    (updateCourse)="editCourse($event)"
     (removeCourse)="deleteCourse($event)">
   </app-courses-list-item>`
 })
@@ -25,8 +26,12 @@ class TestHostComponent {
     description: `Test`
   };
   courses: Array<Course> = [this.course];
+  editCourseId: number;
   deleteCourse(courseId: number) {
     return this.courses.splice(this.courses.indexOf(this.courses.find((item) => item.id === courseId)), 1);
+  }
+  editCourse(courseId: number): void {
+    this.editCourseId = courseId;
   }
 }
 
@@ -60,5 +65,12 @@ describe('CoursesListItemComponent', () => {
     expect(deleteBtn.nativeElement.textContent).toEqual('Delete');
     deleteBtn.triggerEventHandler('click', null);
     expect(testHost.courses).toEqual([]);
+  });
+
+  it('should raise the edition event', () => {
+    const editBtn = fixture.debugElement.query(By.css('.edit-btn'));
+    expect(editBtn.nativeElement.textContent).toEqual('Edit');
+    editBtn.triggerEventHandler('click', null);
+    expect(testHost.editCourseId).toEqual(6);
   });
 });

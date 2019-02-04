@@ -32,3 +32,14 @@
         cursor: pointer;
     }
 }
+
+.log-in a,
+.log-out a {
+    &:link,
+    &:hover,
+    &:visited,
+    &:active {
+        text-decoration: none;
+        color: inherit;
+    }
+}

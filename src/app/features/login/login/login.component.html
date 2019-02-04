@@ -1,0 +1,20 @@
+<div class="container">
+  <div class="content">
+    <div class="login-text">
+      <h2 class="welcome">Welcome to E-Learning Platform!</h2>
+      <h3 class="moto">Learn anything, anytime, anywhere!</h3>
+      <div class="guide">
+        <p>You need to login to view this content.</p>
+        <p>If you already have an account, please login, or create a new user account to automatically receive full privileges.</p>
+      </div>
+    </div>
+    <div class="login-form">
+      <h3 class="form-heading">Login</h3>
+      <form class="log-in-form">
+        <input type="email" id="email" name="email" placeholder="Email" [(ngModel)]="userEmail">
+        <input type="password" id="password" name="password" placeholder="Password" [(ngModel)]="userPassword">
+        <button type="submit" class="submit-btn" (click)="logIn()">Login</button>
+      </form>
+    </div>
+  </div>
+</div>
