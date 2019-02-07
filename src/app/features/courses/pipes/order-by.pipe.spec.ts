@@ -11,25 +11,28 @@ describe('OrderByPipe', () => {
       {
         id: 1,
         title: 'Test3',
-        creationDate: '01/01/2019',
+        creationDate: '2019-01-01',
         duration: '1688',
         topRated: true,
+        authors: ['Unknown Author'],
         description: 'Test1'
       },
       {
         id: 2,
         title: 'Test1',
-        creationDate: '11/01/2018',
+        creationDate: '2018-11-01',
         duration: '1773',
         topRated: true,
+        authors: ['Unknown Author'],
         description: 'Test2'
       },
       {
         id: 3,
         title: 'Test2',
-        creationDate: '12/22/2018',
+        creationDate: '2018-12-22',
         duration: '620',
         topRated: false,
+        authors: ['Unknown Author'],
         description: 'Test3'
       }
     ];
@@ -53,25 +56,28 @@ describe('OrderByPipe', () => {
       {
         id: 2,
         title: 'Test1',
-        creationDate: '11/01/2018',
+        creationDate: '2018-11-01',
         duration: '1773',
         topRated: true,
+        authors: ['Unknown Author'],
         description: 'Test2'
       },
       {
         id: 3,
         title: 'Test2',
-        creationDate: '12/22/2018',
+        creationDate: '2018-12-22',
         duration: '620',
         topRated: false,
+        authors: ['Unknown Author'],
         description: 'Test3'
       },
       {
         id: 1,
         title: 'Test3',
-        creationDate: '01/01/2019',
+        creationDate: '2019-01-01',
         duration: '1688',
         topRated: true,
+        authors: ['Unknown Author'],
         description: 'Test1'
       }
     ]);

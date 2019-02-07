@@ -4,6 +4,7 @@ interface CoursesListItem {
     creationDate: string;
     duration: string;
     description: string;
+    authors: Array<string>;
     topRated: boolean;
 }
 
@@ -13,5 +14,6 @@ export class Course implements CoursesListItem {
     creationDate: string;
     duration: string;
     description: string;
+    authors: Array<string>;
     topRated: boolean;
 }

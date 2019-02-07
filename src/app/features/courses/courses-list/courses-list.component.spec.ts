@@ -55,9 +55,10 @@ describe('CoursesListComponent', () => {
     searchResult = [{
       id: 6,
       title: 'Testing Angular 4 Apps with Jasmine',
-      creationDate: '03.05.2018',
+      creationDate: '2018-03-05',
       duration: '172',
       topRated: false,
+      authors: ['Unknown Author'],
       description: `In this course, author of several best selling courses on Udemy takes you from the ground and gives you a
       solid foundation to write automated tests for your Angular apps. Whether you're an absolute beginner or have some familiarity
       with automated testing, this course will give you all the necessary skills to write automated tests for your Angular apps. `
@@ -94,7 +95,7 @@ describe('CoursesListComponent', () => {
   });
 
   it('should add a new course', () => {
-    const addBtn = fixture.debugElement.query(By.css('.add-btn'));
+    const addBtn = fixture.debugElement.query(By.css('.add'));
     addBtn.triggerEventHandler('click', null);
     expect(serviceSpy.createCourse).toHaveBeenCalled();
   });

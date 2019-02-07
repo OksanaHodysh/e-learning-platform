@@ -74,10 +74,14 @@
 }
 
 .add-btn {
+    display: block;
     width: 200px;
+    text-align: center;
+    line-height: 30px;
     border: 1px solid #0D5786;
     background-color: #0D5786;
     color: #ffffff;
+    text-decoration: none;
     &:hover {
         background-color: #ffffff;
         color: #0D5786;

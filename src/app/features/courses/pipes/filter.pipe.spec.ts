@@ -11,25 +11,28 @@ describe('FilterPipe', () => {
       {
         id: 1,
         title: 'Angular',
-        creationDate: '01/01/2019',
+        creationDate: '2019-01-01',
         duration: '1688',
         topRated: true,
+        authors: ['Unknown Author'],
         description: 'Test1'
       },
       {
         id: 2,
         title: 'AngularJS',
-        creationDate: '11/01/2018',
+        creationDate: '2018-11-01',
         duration: '1773',
         topRated: true,
+        authors: ['Unknown Author'],
         description: 'Test2'
       },
       {
         id: 3,
         title: 'VueJS',
-        creationDate: '12/22/2018',
+        creationDate: '2018-12-22',
         duration: '620',
         topRated: false,
+        authors: ['Unknown Author'],
         description: 'Test3'
       }
     ];
@@ -53,17 +56,19 @@ describe('FilterPipe', () => {
       {
         id: 1,
         title: 'Angular',
-        creationDate: '01/01/2019',
+        creationDate: '2019-01-01',
         duration: '1688',
         topRated: true,
+        authors: ['Unknown Author'],
         description: 'Test1'
       },
       {
         id: 2,
         title: 'AngularJS',
-        creationDate: '11/01/2018',
+        creationDate: '2018-11-01',
         duration: '1773',
         topRated: true,
+        authors: ['Unknown Author'],
         description: 'Test2'
       }
     ]);

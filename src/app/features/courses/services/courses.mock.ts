@@ -1,10 +1,13 @@
-export const courses = [
+import { Course } from '../course.model';
+
+export const courses: Array<Course> = [
   {
     id: 1,
     title: 'Angular 7 - The Complete Guide',
-    creationDate: '01/29/2019',
+    creationDate: '2019-01-29',
     duration: '1688',
     topRated: true,
+    authors: ['Maximilian Schwarzmüller'],
     description: `This course starts from scratch, you neither need to know Angular 1 nor Angular 2!
       From Setup to Deployment, this course covers it all! You'll learn all about Components, Directives,
       Services, Forms, Http Access, Authentication, Optimizing an Angular App with Modules and Offline
@@ -13,9 +16,10 @@ export const courses = [
   {
     id: 2,
     title: 'The Complete Angular Course: Beginner to Advanced',
-    creationDate: '12/01/2018',
+    creationDate: '2018-12-01',
     duration: '1773',
     topRated: true,
+    authors: ['Mosh Hamedani', 'Unknown Assistant'],
     description: `Right from the beginning, you'll jump in and build your first Angular app within minutes.
       Say goodbye to boring tutorials and courses with rambling instructors and useless theories! You'll learn
       how to apply best practices, refactor your code and produce high quality code like a professional developer.`
@@ -23,9 +27,10 @@ export const courses = [
   {
     id: 3,
     title: 'Angular Crash Course for Busy Developers',
-    creationDate: '01/20/2019',
+    creationDate: '2019-01-20',
     duration: '620',
     topRated: false,
+    authors: ['Mosh Hamedani', 'Unknown Assistant'],
     description: `In  just 10 hours, you can learn all the essential Angular concepts! You can simply dedicate
       a weekend to this course and by the end of the weekend you'll have a good understanding of Angular and you'll
       be able to build real client apps with Angular.`
@@ -33,9 +38,10 @@ export const courses = [
   {
     id: 4,
     title: 'Angular & NodeJS - The MEAN Stack Guide',
-    creationDate: '02/01/2019',
+    creationDate: '2019-02-01',
     duration: '759',
     topRated: false,
+    authors: ['Maximilian Schwarzmüller'],
     description: `Create modern, scalable and high-speed Web Applications with Angular and NodeJS + Express + MongoDB.
       Angular 1 and NodeJS, together with ExpressJS (a NodeJS Framework) and MongoDB formed the very popular MEAN stack.
       Now is the time to dive into MEAN 2.0 and replace Angular 1 with Angular 2+.`
@@ -43,9 +49,10 @@ export const courses = [
   {
     id: 5,
     title: 'Angular Front To Back',
-    creationDate: '01/15/2019',
+    creationDate: '2019-01-15',
     duration: '685',
     topRated: false,
+    authors: ['Brad Traversy'],
     description: `This course was crafted to benefit absolutely any level of developer. We will start from scratch and
       learn how to create a development environment for Angular 5+, Setup Angular CLI and learn all of the fundamentals.
       We start by building a sandbox application to look at all of the main Angular concepts as well as building a logging
@@ -54,9 +61,10 @@ export const courses = [
   {
     id: 6,
     title: 'Testing Angular 4 Apps with Jasmine',
-    creationDate: '02/15/2019',
+    creationDate: '2019-02-15',
     duration: '132',
     topRated: false,
+    authors: ['Mosh Hamedani', 'Unknown Assistant'],
     description: `In this course, author of several best selling courses on Udemy takes you from the ground and gives you a
       solid foundation to write automated tests for your Angular apps. Whether you're an absolute beginner or have some familiarity
       with automated testing, this course will give you all the necessary skills to write automated tests for your Angular apps. `
@@ -64,9 +72,10 @@ export const courses = [
   {
     id: 7,
     title: 'Learn Angular 2 from Beginner to Advanced',
-    creationDate: '09/08/2018',
+    creationDate: '2018-09-08',
     duration: '606',
     topRated: false,
+    authors: ['Ermin Kreponic'],
     description: `If you are looking to advance your skills with Angular 2, then look no further because this course is just right
       for you! Become an advanced programmer in Angular 2 in no time using this course which will continue to educate and motivate you
       along the way.`

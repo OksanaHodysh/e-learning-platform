@@ -1,0 +1,25 @@
+.section-control {
+    display: flex;
+    align-items: center;
+}
+
+.numeric-value {
+    width: 30%;
+}
+
+.text-value {
+    margin-left: 1em;
+}
+
+.section-control input {
+    width: 100%;
+    padding: 0.5em;
+    margin: 1em 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: 0;
+    font-family: inherit;
+    &:focus {
+        border-color: #FDBC42;
+    }
+}

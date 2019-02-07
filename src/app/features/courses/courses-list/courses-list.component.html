@@ -11,9 +11,8 @@
           <img src="assets/img/search-icon.png">
         </div>
       </div>
-      <div class="add">
-        <button class="add-btn"
-          (click)="addCourse()">Add Course</button>
+      <div class="add" (click)="addCourse()">
+        <a class="add-btn" routerLink="/edit">Add Course</a>
       </div>
     </div>
     <div class="matches">{{searchedCourses.length}} COURSES FOUND</div>
