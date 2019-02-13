@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
 
 import { CoursesListComponent } from './courses-list/courses-list.component';
 import { CoursesListItemComponent } from './courses-list-item/courses-list-item.component';
@@ -14,6 +13,8 @@ import { FilterPipe } from './pipes/filter.pipe';
 import { CourseService } from './services/course.service';
 import { DatePickerComponent } from './date-picker/date-picker.component';
 import { DurationCalculatorComponent } from './duration-calculator/duration-calculator.component';
+import { CoursesRoutingModule } from './courses-routing.module';
+import { CoursesHomeComponent } from './courses-home/courses-home.component';
 
 @NgModule({
   declarations: [
@@ -26,12 +27,13 @@ import { DurationCalculatorComponent } from './duration-calculator/duration-calc
     OrderByPipe,
     FilterPipe,
     DatePickerComponent,
-    DurationCalculatorComponent
+    DurationCalculatorComponent,
+    CoursesHomeComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
-    RouterModule
+    CoursesRoutingModule
   ],
   exports: [
     CoursesListComponent

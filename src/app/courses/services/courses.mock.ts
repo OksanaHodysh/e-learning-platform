@@ -1,6 +1,6 @@
 import { Course } from '../course.model';
 
-export const courses: Array<Course> = [
+export let courses: Array<Course> = [
   {
     id: 1,
     title: 'Angular 7 - The Complete Guide',

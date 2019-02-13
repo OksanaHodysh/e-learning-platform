@@ -1,20 +1,18 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { CoursesListComponent } from './features/courses/courses-list/courses-list.component';
-import { LoginComponent } from './features/login/login/login.component';
-import { CourseEditorComponent } from './features/courses/course-editor/course-editor.component';
+import { LoginComponent } from './login/login/login.component';
+import { NotFoundComponent } from './core/components/not-found/not-found.component';
 
 const AppRoots = {
-  Courses: 'courses',
-  Login: 'login',
-  Edit: 'edit'
+  default: '',
+  courses: 'courses',
+  login: 'login'
 };
 
 const routes: Routes = [
-  { path: AppRoots.Courses, component: CoursesListComponent },
-  { path: AppRoots.Login, component: LoginComponent },
-  { path: AppRoots.Edit, component: CourseEditorComponent},
-  { path: '**', redirectTo: AppRoots.Courses }
+  { path: AppRoots.login, component: LoginComponent },
+  { path: AppRoots.default, redirectTo: AppRoots.courses, pathMatch: 'full'},
+  { path: '**', component: NotFoundComponent }
 ];
 
 @NgModule({

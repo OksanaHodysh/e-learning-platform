@@ -4,3 +4,13 @@
     height: 100%;
 }
 
+.content {
+    flex-grow: 1;
+    overflow: auto;
+    background-color: #CEE39D;
+    height: 100%;
+}
+
+.no-shrink {
+    flex-shrink: 0;
+}

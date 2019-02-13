@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { Course } from '../course.model';
 import { FilterPipe } from '../pipes/filter.pipe';
@@ -18,7 +19,8 @@ export class CoursesListComponent implements OnInit {
 
   constructor(
     private filterPipe: FilterPipe,
-    private courseService: CourseService
+    private courseService: CourseService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -34,10 +36,6 @@ export class CoursesListComponent implements OnInit {
     this.searchedCourses = this.filterPipe.transform(this.courses, this.searchCourse);
   }
 
-  public addCourse(): void {
-    this.courseService.createCourse();
-  }
-
   public deleteCourse(courseId: number): void {
     const deletionConfirmed = confirm('Do you really want to delete this course?');
     if (deletionConfirmed) {
@@ -47,7 +45,7 @@ export class CoursesListComponent implements OnInit {
   }
 
   public editCourse(courseId: number): void {
-    this.courseService.updateCourse(courseId);
+    this.router.navigate(['/courses', courseId]);
   }
 
   public loadMore(): void {

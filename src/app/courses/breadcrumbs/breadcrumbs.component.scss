@@ -7,3 +7,10 @@
     color: #ffffff;
     background-color: #FDBC42;
 }
+
+.nav:link,
+.nav:visited,
+.nav:hover,
+.nav:active {
+    color: inherit;
+}

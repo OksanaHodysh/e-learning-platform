@@ -1,11 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
-import { FeaturesModule } from './features/features.module';
 import { StoreModule } from './store/store.module';
+import { CoursesModule } from './courses/courses.module';
+import { LoginModule } from './login/login.module';
 
 @NgModule({
   declarations: [
@@ -13,10 +13,10 @@ import { StoreModule } from './store/store.module';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
-    CoreModule,
-    FeaturesModule,
-    StoreModule
+    CoursesModule,
+    LoginModule,
+    StoreModule,
+    CoreModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -4,10 +4,12 @@
   </div>
   <div class="login-block">
     <div class="log-in">
-      <a routerLink="/login">Log In</a>
+      <span>{{ getUserLogin() }}</span>
     </div>
-    <button class="log-out" (click)=logOut()>
-      <a routerLink="/login">Log Out</a>
+    <button
+      class="log-out"
+      (click)=logOut()>
+      <span>Log Out</span>
     </button>
   </div>
 </div>

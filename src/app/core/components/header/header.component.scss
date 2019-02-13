@@ -1,7 +1,3 @@
-:host {
-    flex-shrink: 0;
-}
-
 .container {
     display: flex;
     padding: 5px 1%;
@@ -30,16 +26,5 @@
         font-weight: bold;
         background-color: #ffffff;
         cursor: pointer;
-    }
-}
-
-.log-in a,
-.log-out a {
-    &:link,
-    &:hover,
-    &:visited,
-    &:active {
-        text-decoration: none;
-        color: inherit;
     }
 }

@@ -2,9 +2,11 @@ import { TestBed } from '@angular/core/testing';
 
 import { CourseService } from './course.service';
 import { courses } from './courses.mock';
+import { Course } from '../course.model';
 
 describe('CourseService', () => {
   let service: CourseService;
+  let newCourse: Course;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -13,6 +15,15 @@ describe('CourseService', () => {
       ]
     });
     service = TestBed.get(CourseService);
+    newCourse = {
+      id: null,
+      title: '',
+      creationDate: '',
+      duration: '',
+      description: '',
+      authors: [],
+      topRated: false
+    };
   });
 
   it('should be created', () => {
@@ -24,7 +35,9 @@ describe('CourseService', () => {
   });
 
   it('should create a new course', () => {
-    expect(service.createCourse()).toBeUndefined();
+    service.createCourse(newCourse);
+
+    expect(service.courses.indexOf(newCourse)).not.toBe(-1);
   });
 
   it('should return a course by its id if there is one', () => {
@@ -36,7 +49,9 @@ describe('CourseService', () => {
   });
 
   it('should update an existing course', () => {
-    expect(service.updateCourse(1)).toBeUndefined();
+    service.updateCourse(service.courses[0], newCourse);
+
+    expect(service.courses[0]).toBe(newCourse);
   });
 
   it('should remove a course by its id', () => {

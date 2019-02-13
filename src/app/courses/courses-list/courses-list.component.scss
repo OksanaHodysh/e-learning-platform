@@ -1,9 +1,3 @@
-:host {
-    flex-grow: 1;
-    overflow: auto;
-    background-color: #CEE39D;
-}
-
 .container {
     max-width: 1200px;
     margin: 0 auto;
@@ -76,12 +70,11 @@
 .add-btn {
     display: block;
     width: 200px;
-    text-align: center;
     line-height: 30px;
     border: 1px solid #0D5786;
     background-color: #0D5786;
     color: #ffffff;
-    text-decoration: none;
+    font-size: 1em;
     &:hover {
         background-color: #ffffff;
         color: #0D5786;
