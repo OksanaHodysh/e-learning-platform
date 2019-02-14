@@ -5,6 +5,7 @@ import { CourseEditorComponent } from './course-editor/course-editor.component';
 import { CoursesHomeComponent } from './courses-home/courses-home.component';
 import { AuthGuard } from '../core/guards/auth.guard';
 import { CanDeactivateGuard } from '../core/guards/can-deactivate.guard';
+import { CourseResolverGuard } from '../core/guards/course-resolver.guard';
 
 const coursesRoots = {
   default: '',
@@ -30,7 +31,10 @@ const routes: Routes = [
       {
         path: coursesRoots.coursesId,
         component: CourseEditorComponent,
-        canDeactivate: [CanDeactivateGuard]
+        canDeactivate: [CanDeactivateGuard],
+        resolve: {
+          course: CourseResolverGuard
+        }
       }
     ]
   }
