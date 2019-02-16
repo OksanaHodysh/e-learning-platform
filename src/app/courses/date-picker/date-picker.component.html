@@ -1,0 +1,13 @@
+<div class="section">
+  <div class="section-name">
+    <label for="date">Date:</label>
+  </div>
+  <div class="section-control">
+    <input
+      type="date"
+      name="date"
+      id="date"
+      [(ngModel)]="date"
+      (change)="setNewDate($event)">
+  </div>
+</div>

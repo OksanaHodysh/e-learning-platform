@@ -1,17 +1,18 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { CoursesListComponent } from './features/courses/courses-list/courses-list.component';
-import { LoginComponent } from './features/login/login/login.component';
+import { LoginComponent } from './login/login/login.component';
+import { NotFoundComponent } from './core/components/not-found/not-found.component';
 
-enum AppRoots {
-  Courses = 'courses',
-  Login = 'login'
-}
+const AppRoots = {
+  default: '',
+  courses: 'courses',
+  login: 'login'
+};
 
 const routes: Routes = [
-  { path: AppRoots.Courses, component: CoursesListComponent },
-  { path: AppRoots.Login, component: LoginComponent },
-  { path: '**', redirectTo: AppRoots.Courses }
+  { path: AppRoots.login, component: LoginComponent },
+  { path: AppRoots.default, redirectTo: AppRoots.courses, pathMatch: 'full'},
+  { path: '**', component: NotFoundComponent }
 ];
 
 @NgModule({

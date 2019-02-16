@@ -1,0 +1,18 @@
+<div class="section">
+  <div class="section-name">
+    <label for="duration">Duration:</label>
+  </div>
+  <div class="section-control">
+    <div class="numeric-value">
+      <input
+        type="number"
+        name="duration"
+        id="duration"
+        [(ngModel)]="duration"
+        (change)="setDuration($event)">
+    </div>
+    <div class="text-value">
+      <span>{{duration | duration}}</span>
+    </div>
+  </div>
+</div>

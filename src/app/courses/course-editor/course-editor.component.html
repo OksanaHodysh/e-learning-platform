@@ -1,0 +1,67 @@
+<div class="container">
+  <div class="content">
+    <h3 class="form-heading">Add a Course</h3>
+    <form class="edit-form">
+      <div class="section">
+        <div class="section-name">
+          <label for="title">Title:</label>
+        </div>
+        <div class="section-control">
+          <input
+            type="text"
+            name="title"
+            id="title"
+            [(ngModel)]="newCourse.title">
+        </div>
+      </div>
+      <div class="section">
+        <div class="section-name">
+          <label for="description">Description:</label>
+        </div>
+        <div class="section-control">
+          <textarea
+            name="description"
+            id="description"
+            rows="4"
+            [(ngModel)]="newCourse.description">
+          </textarea>
+        </div>
+      </div>
+      <app-date-picker
+        class="date-picker"
+        [date]="newCourse.creationDate"
+        (changeDate)="setNewDate($event)">
+      </app-date-picker>
+      <app-duration-calculator
+        class="duration-calc"
+        [duration]="newCourse.duration"
+        (changeDuration)="setDuration($event)">
+      </app-duration-calculator>
+      <div class="section">
+        <div class="section-name">
+          <label for="authors">Authors:</label>
+        </div>
+        <div class="section-control">
+          <input
+            type="text"
+            name="authors"
+            id="authors"
+            [(ngModel)]="authors">
+        </div>
+      </div>
+      <div class="form-control">
+        <button
+          class="control-btn save"
+          type="submit"
+          (click)="saveCourse()">
+          Save
+        </button>
+        <button
+          class="control-btn cancel"
+          (click)="returnToCourses()">
+          Cancel
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

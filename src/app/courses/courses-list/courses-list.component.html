@@ -1,0 +1,41 @@
+<div class="container">
+  <div class="edit">
+    <div class="search">
+      <input type="text"
+        class="search-field"
+        placeholder='Search...'
+        [(ngModel)]="searchCourse">
+      <div class="search-btn" (click)="findCourses()">
+        <img src="assets/img/search-icon.png">
+      </div>
+    </div>
+    <div class="add">
+      <button class="add-btn" [routerLink]="['/courses', 'new']">Add Course</button>
+    </div>
+  </div>
+  <div class="matches">{{searchedCourses.length}} COURSES FOUND</div>
+  <ng-container *ngIf="searchedCourses.length; else noCourses">
+    <div class="courses-list">
+      <app-courses-list-item
+        class="list-item"
+        *ngFor="let course of searchedCourses | orderBy: 'creationDate' | slice: 0: limit"
+        [course]="course"
+        (updateCourse)="editCourse($event)"
+        (removeCourse)="deleteCourse($event)"
+        [appPaintBorder]="course.creationDate">
+      </app-courses-list-item>
+    </div>
+    <div class="load-more"
+      *ngIf="limit < searchedCourses.length">
+      <button class="load-btn"
+        (click)="loadMore()">
+        LOAD MORE
+      </button>
+    </div>
+  </ng-container>
+  <ng-template #noCourses>
+    <div class="no-results">
+      NO DATA. FEEL FREE TO ADD NEW COURSE
+    </div>
+  </ng-template>
+</div>
