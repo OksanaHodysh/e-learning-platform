@@ -69,15 +69,7 @@ describe('CourseEditorComponent', () => {
     coursesSpy = TestBed.get(CourseService);
     routerSpy = TestBed.get(Router);
     activatedRoute = TestBed.get(ActivatedRoute);
-    newCourse = {
-      id: 1,
-      title: '',
-      creationDate: '',
-      duration: '',
-      description: '',
-      authors: [],
-      topRated: false
-    };
+    newCourse = new Course(1);
     existingCourse = {
       id: 1,
       title: 'Angular 7 - The Complete Guide',
@@ -109,6 +101,7 @@ describe('CourseEditorComponent', () => {
       expect(coursesSpy.getCourseById).toHaveBeenCalledWith(1);
       expect(component.editedCourse).toBe(existingCourse);
       expect(component.newCourse).toEqual(existingCourse);
+      expect(component.isSaved).toBe(false);
     });
 
     it('should set new course duration', () => {
@@ -173,6 +166,7 @@ describe('CourseEditorComponent', () => {
       component.newCourse.title = 'Angular 7';
 
       expect(coursesSpy.updateCourse).toHaveBeenCalledWith(component.editedCourse, component.newCourse);
+      expect(component.isSaved).toBe(true);
       expect(routerSpy.navigate).toHaveBeenCalledWith(['/courses']);
     });
 
@@ -203,6 +197,7 @@ describe('CourseEditorComponent', () => {
       expect(coursesSpy.getCourseById).toHaveBeenCalledWith(1);
       expect(component.editedCourse).toBeNull();
       expect(component.newCourse).toEqual(newCourse);
+      expect(component.isSaved).toBe(false);
     });
 
     it('should save a newly created course', () => {
@@ -211,14 +206,8 @@ describe('CourseEditorComponent', () => {
       saveBtn.triggerEventHandler('click', null);
 
       expect(coursesSpy.createCourse).toHaveBeenCalledWith(newCourse);
+      expect(component.isSaved).toBe(true);
       expect(routerSpy.navigate).toHaveBeenCalledWith(['/courses']);
-    });
-
-    it('should create a new empty course with id', () => {
-      const result = component.createNewCourse();
-
-      expect(result).toEqual(newCourse);
-      expect(component.newCourse.id).toBe(1);
     });
   });
 });

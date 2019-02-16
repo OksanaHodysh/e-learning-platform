@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { switchMap } from 'rxjs/operators';
 import { of, Observable } from 'rxjs';
 
@@ -10,11 +10,13 @@ import { CanComponentDeactivate } from 'src/app/core/guards/can-deactivate.guard
 @Component({
   selector: 'app-course-editor',
   templateUrl: './course-editor.component.html',
-  styleUrls: ['./course-editor.component.scss']
+  styleUrls: ['./course-editor.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CourseEditorComponent implements OnInit, CanComponentDeactivate {
   public newCourse: Course;
   public editedCourse: Course;
+  public isSaved: boolean;
 
   constructor(
     private route: ActivatedRoute,
@@ -24,7 +26,8 @@ export class CourseEditorComponent implements OnInit, CanComponentDeactivate {
 
   ngOnInit() {
     this.editedCourse = null;
-    this.newCourse = this.createNewCourse();
+    this.isSaved = false;
+    this.newCourse = new Course(this.generateCourseId());
     this.route.paramMap.pipe(
       switchMap((params: ParamMap) =>
         of(this.courseService.getCourseById(+params.get('id')))))
@@ -51,6 +54,8 @@ export class CourseEditorComponent implements OnInit, CanComponentDeactivate {
       this.courseService.updateCourse(this.editedCourse, this.newCourse) :
       this.courseService.createCourse(this.newCourse);
 
+    this.isSaved = true;
+
      this.router.navigate(['/courses']);
   }
 
@@ -68,22 +73,11 @@ export class CourseEditorComponent implements OnInit, CanComponentDeactivate {
     this.newCourse.duration = newDuration;
   }
 
-  public createNewCourse(): Course {
-    return {
-      id: this.generateCourseId(),
-      title: '',
-      creationDate: '',
-      duration: '',
-      description: '',
-      authors: [],
-      topRated: false
-    };
-  }
-
   public canDeactivate(): Observable<boolean> | Promise<boolean> | boolean {
-    const unsavedChanges = this.editedCourse &&
-    Object.keys(this.editedCourse).some((key: string) => {
-      return this.editedCourse[key] !== this.newCourse[key];
+    const unsavedChanges = !this.isSaved &&
+      this.editedCourse &&
+      Object.keys(this.editedCourse).some((key: string) => {
+        return this.editedCourse[key] !== this.newCourse[key];
     });
 
     return unsavedChanges ?
