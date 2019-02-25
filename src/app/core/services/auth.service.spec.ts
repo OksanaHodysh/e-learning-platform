@@ -6,7 +6,7 @@ import { LoggedInUser } from '../models/user.model';
 
 describe('AuthService', () => {
   let service: AuthService;
-  let email: string;
+  let login: string;
   let password: string;
   let storeKey: string;
   let routerSpy: jasmine.SpyObj<Router>;
@@ -14,7 +14,7 @@ describe('AuthService', () => {
   beforeEach(() => {
     const spy = jasmine.createSpyObj('Router', ['navigate']);
 
-    email = 'test@test.com';
+    login = 'test@test.com';
     password = 'test777';
     storeKey = 'currentUser';
 
@@ -45,14 +45,14 @@ describe('AuthService', () => {
   });
 
   it('should save user data to local storage', () => {
-    service.login(email, password);
+    service.login(login, password);
     expect(localStorage.setItem).toHaveBeenCalledWith(
       storeKey,
       JSON.stringify(
         {
-          email,
+          login,
           password,
-          token: `${email}${password}`.split('').join('-')
+          token: `${login}${password}`.split('').join('-')
         }
       )
     );
@@ -60,7 +60,7 @@ describe('AuthService', () => {
   });
 
   it('should return true for authenticated user', () => {
-    service.login(email, password);
+    service.login(login, password);
     service.isAuthenticated();
     expect(service.isAuthenticated()).toBe(true);
   });
@@ -75,12 +75,12 @@ describe('AuthService', () => {
   });
 
   it('should return user data for logged in', () => {
-    service.login(email, password);
-    expect(service.getUserInfo()).toBe(email);
+    service.login(login, password);
+    expect(service.getUserInfo()).toBe(login);
   });
 
   it('should log user out', () => {
-    service.login(email, password);
+    service.login(login, password);
     service.logout();
     expect(localStorage.removeItem).toHaveBeenCalledWith(storeKey);
     expect(routerSpy.navigate).toHaveBeenCalled();

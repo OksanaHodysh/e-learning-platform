@@ -1,41 +1,56 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { Observable, EMPTY } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { LoggedInUser } from '../models/user.model';
+
+interface AuthToken {
+  token: string;
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private token: string = null;
-  private user: LoggedInUser = null;
+  public token = localStorage.getItem('currentUser');
+  public readonly API_URL = 'http://localhost:3004';
 
-  constructor(private router: Router) { }
+  constructor(
+    private router: Router,
+    private http: HttpClient
+    ) { }
 
-  public login(email: string, password: string): void {
-    this.token = `${email}${password}`.split('').join('-');
-    this.user = {
-      email,
-      password,
-      token: this.token
-    };
-    localStorage.setItem('currentUser', JSON.stringify(this.user));
-    this.router.navigate(['/courses']);
+  public login(login: string, password: string): void {
+    this.http.post<AuthToken>(`${this.API_URL}/auth/login`, {login, password})
+      .subscribe(
+        ({token}) => {
+          this.token = token;
+          localStorage.setItem('currentUser', token);
+          this.router.navigate(['/courses']);
+        },
+        () => console.log('No user found with such login and/or password.'));
   }
 
   public logout(): void {
     localStorage.removeItem('currentUser');
     this.token = null;
-    this.user = null;
     this.router.navigate(['/login']);
   }
 
   public isAuthenticated(): boolean {
-    return !!localStorage.getItem('currentUser');
+    return !!this.token;
   }
 
-  public getUserInfo(): string {
-    const currentUser = localStorage.getItem('currentUser');
-    return currentUser && JSON.parse(currentUser).email;
+  public getAuthToken(): string {
+    return this.token;
+  }
+
+  public getUserInfo(): Observable<string> {
+    return this.isAuthenticated() ?
+      this.http.post<LoggedInUser>(`${this.API_URL}/auth/userinfo`, null)
+        .pipe(map(({login}) => login)) :
+      EMPTY;
   }
 }

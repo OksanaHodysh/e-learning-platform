@@ -1,17 +1,12 @@
-interface AppUser {
-    id: number;
-    firstName: string;
-    lastName: string;
-}
-
-export class User implements AppUser {
-    id: number;
-    firstName: string;
-    lastName: string;
+interface User {
+    first: string;
+    last: string;
 }
 
 export interface LoggedInUser {
-    email: string;
+    id: number;
+    fakeToken: string;
+    name: User;
+    login: string;
     password: string;
-    token: string;
 }
