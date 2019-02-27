@@ -7,7 +7,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 })
 export class DurationCalculatorComponent implements OnInit {
   @Input() duration: string;
-  @Output() changeDuration = new EventEmitter<string>();
+  @Output() changeDuration = new EventEmitter<number>();
 
   constructor() { }
 
@@ -15,7 +15,7 @@ export class DurationCalculatorComponent implements OnInit {
   }
 
   public setDuration(event: Event): void {
-    this.changeDuration.emit((event.target as HTMLInputElement).value);
+    this.changeDuration.emit(+(event.target as HTMLInputElement).value);
   }
 
 }

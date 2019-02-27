@@ -11,28 +11,46 @@ describe('OrderByPipe', () => {
       {
         id: 1,
         title: 'Test3',
-        creationDate: '2019-01-01',
-        duration: '1688',
-        topRated: true,
-        authors: ['Unknown Author'],
+        date: '2019-01-01',
+        duration: 1688,
+        isTopRated: true,
+        authors: [
+          {
+            id: 1,
+            firstName: 'John',
+            lastName: 'Doe'
+          }
+        ],
         description: 'Test1'
       },
       {
         id: 2,
         title: 'Test1',
-        creationDate: '2018-11-01',
-        duration: '1773',
-        topRated: true,
-        authors: ['Unknown Author'],
+        date: '2018-11-01',
+        duration: 1773,
+        isTopRated: true,
+        authors: [
+          {
+            id: 1,
+            firstName: 'John',
+            lastName: 'Doe'
+          }
+        ],
         description: 'Test2'
       },
       {
         id: 3,
         title: 'Test2',
-        creationDate: '2018-12-22',
-        duration: '620',
-        topRated: false,
-        authors: ['Unknown Author'],
+        date: '2018-12-22',
+        duration: 620,
+        isTopRated: false,
+        authors: [
+          {
+            id: 1,
+            firstName: 'John',
+            lastName: 'Doe'
+          }
+        ],
         description: 'Test3'
       }
     ];
@@ -51,39 +69,57 @@ describe('OrderByPipe', () => {
     expect(pipe.transform(courses, '')).toBe(courses);
   });
 
-  it('should return array sorted by date if fieldName is creationDate', () => {
-    expect(pipe.transform(courses, 'creationDate')).toEqual([
+  it('should return array sorted by date if fieldName is date', () => {
+    expect(pipe.transform(courses, 'date')).toEqual([
       {
         id: 2,
         title: 'Test1',
-        creationDate: '2018-11-01',
-        duration: '1773',
-        topRated: true,
-        authors: ['Unknown Author'],
+        date: '2018-11-01',
+        duration: 1773,
+        isTopRated: true,
+        authors: [
+          {
+            id: 1,
+            firstName: 'John',
+            lastName: 'Doe'
+          }
+        ],
         description: 'Test2'
       },
       {
         id: 3,
         title: 'Test2',
-        creationDate: '2018-12-22',
-        duration: '620',
-        topRated: false,
-        authors: ['Unknown Author'],
+        date: '2018-12-22',
+        duration: 620,
+        isTopRated: false,
+        authors: [
+          {
+            id: 1,
+            firstName: 'John',
+            lastName: 'Doe'
+          }
+        ],
         description: 'Test3'
       },
       {
         id: 1,
         title: 'Test3',
-        creationDate: '2019-01-01',
-        duration: '1688',
-        topRated: true,
-        authors: ['Unknown Author'],
+        date: '2019-01-01',
+        duration: 1688,
+        isTopRated: true,
+        authors: [
+          {
+            id: 1,
+            firstName: 'John',
+            lastName: 'Doe'
+          }
+        ],
         description: 'Test1'
       }
     ]);
   });
 
-  it('should return array sorted by value if fieldName is other than creationDate', () => {
+  it('should return array sorted by value if fieldName is other than date', () => {
     const result = pipe.transform(courses, 'title');
 
     expect(result[0].id).toBe(2);

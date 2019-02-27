@@ -20,10 +20,16 @@ class TestHostComponent {
   course: Course = {
     id: 6,
     title: 'Test Course',
-    creationDate: '1970-01-01',
-    duration: '2h 12min',
-    topRated: false,
-    authors: ['Unknown Author'],
+    date: '1970-01-01',
+    duration: 132,
+    isTopRated: false,
+    authors: [
+      {
+        id: 1,
+        firstName: 'John',
+        lastName: 'Doe'
+      }
+    ],
     description: `Test`
   };
   courses: Array<Course> = [this.course];

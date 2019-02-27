@@ -1,11 +1,17 @@
+export interface Author {
+    id: number;
+    firstName: string;
+    lastName: string;
+}
+
 interface CoursesListItem {
     id: number;
     title: string;
-    creationDate: string;
-    duration: string;
+    date: string;
+    duration: number;
     description: string;
-    authors: Array<string>;
-    topRated: boolean;
+    authors: Array<Author>;
+    isTopRated: boolean;
 }
 
 export class Course implements CoursesListItem {
@@ -13,10 +19,10 @@ export class Course implements CoursesListItem {
     constructor(
         public id: number = null,
         public title = '',
-        public creationDate = '',
-        public duration = '',
+        public date = '',
+        public duration = 0,
         public description = '',
-        public authors: Array<string> = [],
-        public topRated = false
+        public authors: Array<Author> = [],
+        public isTopRated = false
     ) {}
 }

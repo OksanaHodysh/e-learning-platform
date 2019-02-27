@@ -18,11 +18,11 @@
     <div class="courses-list">
       <app-courses-list-item
         class="list-item"
-        *ngFor="let course of searchedCourses | orderBy: 'creationDate' | slice: 0: limit"
+        *ngFor="let course of searchedCourses | orderBy: 'date' | slice: 0: limit"
         [course]="course"
         (updateCourse)="editCourse($event)"
         (removeCourse)="deleteCourse($event)"
-        [appPaintBorder]="course.creationDate">
+        [appPaintBorder]="course.date">
       </app-courses-list-item>
     </div>
     <div class="load-more"

@@ -41,10 +41,16 @@ describe('CourseResolverGuard', () => {
     course = {
       id: 1,
       title: 'Angular 7 - The Complete Guide',
-      creationDate: '2019-01-29',
-      duration: '1688',
-      topRated: true,
-      authors: ['Unspecified'],
+      date: '2019-01-29',
+      duration: 1688,
+      isTopRated: true,
+      authors: [
+        {
+          id: 1,
+          firstName: 'John',
+          lastName: 'Doe'
+        }
+      ],
       description: 'Test Description'
     };
   });
