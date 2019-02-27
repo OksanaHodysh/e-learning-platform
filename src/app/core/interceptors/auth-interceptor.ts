@@ -4,6 +4,10 @@ import { Observable } from 'rxjs';
 
 import { AuthService } from '../services/auth.service';
 
+const skipUrls = [
+  '/auth/login'
+];
+
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
 
@@ -19,7 +23,7 @@ export class AuthInterceptor implements HttpInterceptor {
       }
     );
 
-    return req.url.endsWith('login') ?
+    return skipUrls.some((url) => req.url.endsWith(url)) ?
       next.handle(req) :
       next.handle(authReq);
   }

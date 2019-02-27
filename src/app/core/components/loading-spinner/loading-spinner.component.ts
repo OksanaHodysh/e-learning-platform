@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { of } from 'rxjs';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { of, Subscription } from 'rxjs';
 import { LoaderService } from '../../services/loader.service';
 
 @Component({
@@ -7,16 +7,21 @@ import { LoaderService } from '../../services/loader.service';
   templateUrl: './loading-spinner.component.html',
   styleUrls: ['./loading-spinner.component.scss']
 })
-export class LoadingSpinnerComponent implements OnInit {
+export class LoadingSpinnerComponent implements OnInit, OnDestroy {
 
   constructor(private loaderService: LoaderService) { }
   public isLoading: boolean;
+  public loaderSubscription: Subscription;
 
   ngOnInit() {
-    this.loaderService.isLoading.subscribe((data) => {
+    this.loaderSubscription = this.loaderService.isLoading.subscribe((data) => {
       console.log('Loading: ', data);
       this.isLoading = data;
     });
+  }
+
+  ngOnDestroy() {
+    this.loaderSubscription.unsubscribe();
   }
 
 }
