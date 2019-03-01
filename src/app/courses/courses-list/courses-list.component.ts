@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subject } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map, switchMap } from 'rxjs/operators';
 
 import { Course } from '../course.model';
@@ -12,13 +12,14 @@ import { CourseService } from '../services/course.service';
   templateUrl: './courses-list.component.html',
   styleUrls: ['./courses-list.component.scss']
 })
-export class CoursesListComponent implements OnInit {
+export class CoursesListComponent implements OnInit, OnDestroy {
   public courses: Array<Course> = [];
   public searchTerm: string;
   public limit: number;
   public step: number;
   public isLastPage = false;
   private searchText$ = new Subject<string>();
+  private searchSubscription: Subscription;
 
   constructor(
     private filterPipe: FilterPipe,
@@ -37,7 +38,7 @@ export class CoursesListComponent implements OnInit {
         (error) => console.log(error)
       );
 
-    this.searchText$.pipe(
+    this.searchSubscription = this.searchText$.pipe(
       map((text) => text.length >= 3 ? text : ''),
       debounceTime(500),
       distinctUntilChanged(),
@@ -91,5 +92,10 @@ export class CoursesListComponent implements OnInit {
       this.isLastPage = true;
     }
     this.courses = courses;
+  }
+
+  ngOnDestroy() {
+    console.log('Unsubsribed!');
+    this.searchSubscription.unsubscribe();
   }
 }

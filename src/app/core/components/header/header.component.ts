@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 
 import { AuthService } from '../../services/auth.service';
 
@@ -8,21 +9,16 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-  public userLogin = '';
+  public userEmail$: Observable<string>;
 
   constructor(private authService: AuthService) { }
 
   ngOnInit() {
-    this.authService.getUserInfo()
-      .subscribe((data) => {
-        if (data) {
-          this.userLogin = data;
-        }
-      });
+    this.userEmail$ = this.authService.userEmail;
+    this.authService.getUserInfo();
   }
 
   public logOut(): void {
-    this.userLogin = '';
     this.authService.logout();
   }
 }

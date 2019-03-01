@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 
 import { AuthService } from './auth.service';
-import { LoggedInUser } from '../models/user.model';
+import { User } from '../models/user.model';
 
 describe('AuthService', () => {
   let service: AuthService;
@@ -32,7 +32,7 @@ describe('AuthService', () => {
     const store = {};
 
     spyOn(localStorage, 'getItem').and.callFake((key: string): string => store[key] && JSON.parse(store[key]));
-    spyOn(localStorage, 'setItem').and.callFake((key: string, value: LoggedInUser): void => {
+    spyOn(localStorage, 'setItem').and.callFake((key: string, value: User): void => {
       store[key] = JSON.stringify(value);
     });
     spyOn(localStorage, 'removeItem').and.callFake((key: string): void => {

@@ -1,9 +1,4 @@
-interface User {
-    first: string;
-    last: string;
-}
-
-export interface LoggedInUser {
+export interface User {
     id: number;
     fakeToken: string;
     name: User;
