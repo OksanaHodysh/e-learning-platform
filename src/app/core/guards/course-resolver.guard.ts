@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, RouterStateSnapshot, Router, Resolve } from '@angular/router';
 import { Observable, of, EMPTY } from 'rxjs';
+import { mergeMap, take } from 'rxjs/operators';
 
 import { Course } from '../../courses/course.model';
 import { CourseService } from 'src/app/courses/services/course.service';
@@ -19,13 +20,16 @@ export class CourseResolverGuard implements Resolve<Course> {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<Course> | Observable<never> | Course {
       const id = route.paramMap.get('id');
-      const course = this.courseService.getCourseById(+id);
-
-      if (course) {
-        return of(course);
-      } else {
-        this.router.navigate(['/courses']);
-        return EMPTY;
-      }
+      return this.courseService.getCourseById(+id).pipe(
+        take(1),
+        mergeMap((course) => {
+          if (course) {
+            return of(course);
+          } else {
+            this.router.navigate(['/courses']);
+            return EMPTY;
+          }
+        })
+      );
   }
 }

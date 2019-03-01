@@ -38,22 +38,9 @@
     display: flex;
 }
 
-.search-btn,
 .search-field,
 .add-btn {
     height: 30px;
-}
-
-.search-btn {
-    width: 50px;
-    border: 1px solid #0D5786;
-    background-color: #0D5786;
-    padding: 3px 0 1px;
-    text-align: center;
-    &:hover {
-        cursor: pointer;
-        background-color: #ffffff;
-    }
 }
 
 .search-field {
@@ -61,7 +48,6 @@
     padding: 3px 0.5em;
     outline: 0;
     border: 1px solid #0D5786;
-    border-right: none;
     &:focus {
         box-shadow: inset 0 0 3px #40A3FC;
     }

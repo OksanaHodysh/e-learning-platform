@@ -93,23 +93,22 @@ describe('CoursesListComponent', () => {
     it('should initialize data properly', () => {
       expect(component.limit).toBe(5);
       expect(component.step).toBe(5);
-      expect(component.searchCourse).toBe('');
-      expect(component.searchedCourses).toBe(courses);
+      expect(component.searchTerm).toBe('');
       expect(serviceSpy.getCourses).toHaveBeenCalled();
     });
 
     it('should find courses if there are any', () => {
       const searchBtn = fixture.debugElement.query(By.css('.search-btn'));
-      component.searchCourse = 'Jasmine';
+      component.searchTerm = 'Jasmine';
       searchBtn.triggerEventHandler('click', null);
-      expect(component.searchedCourses[0].title).toEqual(searchResult[0].title);
+      expect(component.courses[0].title).toEqual(searchResult[0].title);
     });
 
     it('should return emty array if no matches found', () => {
       const searchBtn = fixture.debugElement.query(By.css('.search-btn'));
-      component.searchCourse = 'React';
+      component.searchTerm = 'React';
       searchBtn.triggerEventHandler('click', null);
-      expect(component.searchedCourses).toEqual([]);
+      expect(component.courses).toEqual([]);
     });
 
     it('should edit an existing course', () => {
@@ -161,8 +160,8 @@ describe('CoursesListComponent', () => {
     it('should initialize data properly', () => {
       expect(component.limit).toBe(5);
       expect(component.step).toBe(5);
-      expect(component.searchCourse).toBe('');
-      expect(component.searchedCourses).toEqual([]);
+      expect(component.searchTerm).toBe('');
+      expect(component.courses).toEqual([]);
       expect(serviceSpy.getCourses).toHaveBeenCalled();
     });
   });

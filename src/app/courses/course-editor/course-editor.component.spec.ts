@@ -36,7 +36,6 @@ describe('CourseEditorComponent', () => {
 
   beforeEach(async(() => {
     const corSpy = jasmine.createSpyObj('CourseService', [
-      'getCourses',
       'getCourseById',
       'createCourse',
       'updateCourse'
@@ -88,7 +87,6 @@ describe('CourseEditorComponent', () => {
         Services, Forms, Http Access, Authentication, Optimizing an Angular App with Modules and Offline
         Compilation and much more - and in the end: You'll learn how to deploy an application!`
     };
-    coursesSpy.getCourses.and.returnValue([]);
     activatedRoute.setParamMap({id: 1});
   });
 

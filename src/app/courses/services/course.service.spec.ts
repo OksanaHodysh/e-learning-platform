@@ -31,7 +31,7 @@ describe('CourseService', () => {
   });
 
   it('should return list of all courses', () => {
-    expect(service.getCourses()).toBe(courses);
+    expect(service.getCourses('', 5)).toBe(courses);
   });
 
   it('should create a new course', () => {
