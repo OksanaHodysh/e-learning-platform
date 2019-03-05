@@ -4,29 +4,27 @@
       <input type="text"
         class="search-field"
         placeholder='Search...'
-        [(ngModel)]="searchCourse">
-      <div class="search-btn" (click)="findCourses()">
-        <img src="assets/img/search-icon.png">
-      </div>
+        (keyup)="findCourses($event.target.value)"
+        [(ngModel)]="searchTerm">
     </div>
     <div class="add">
       <button class="add-btn" [routerLink]="['/courses', 'new']">Add Course</button>
     </div>
   </div>
-  <div class="matches">{{searchedCourses.length}} COURSES FOUND</div>
-  <ng-container *ngIf="searchedCourses.length; else noCourses">
+  <div class="matches">{{courses.length}} COURSES SHOWN</div>
+  <ng-container *ngIf="courses.length; else noCourses">
     <div class="courses-list">
       <app-courses-list-item
         class="list-item"
-        *ngFor="let course of searchedCourses | orderBy: 'creationDate' | slice: 0: limit"
+        *ngFor="let course of courses | orderBy: 'date'"
         [course]="course"
         (updateCourse)="editCourse($event)"
         (removeCourse)="deleteCourse($event)"
-        [appPaintBorder]="course.creationDate">
+        [appPaintBorder]="course.date">
       </app-courses-list-item>
     </div>
     <div class="load-more"
-      *ngIf="limit < searchedCourses.length">
+      *ngIf="!isLastPage">
       <button class="load-btn"
         (click)="loadMore()">
         LOAD MORE

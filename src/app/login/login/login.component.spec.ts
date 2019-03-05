@@ -9,12 +9,12 @@ describe('LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
   let serviceSpy: jasmine.SpyObj<AuthService>;
-  let email: string;
+  let login: string;
   let password: string;
 
   beforeEach(async(() => {
     const spy = jasmine.createSpyObj('AuthService', ['login']);
-    email = 'test@test.com';
+    login = 'test@test.com';
     password = 'test777';
 
     TestBed.configureTestingModule({
@@ -51,10 +51,10 @@ describe('LoginComponent', () => {
   });
 
   it('user should log in by submitting a login form', () => {
-    component.userEmail = email;
+    component.userLogin = login;
     component.userPassword = password;
     const submitBtn = fixture.debugElement.query(By.css('.submit-btn'));
     submitBtn.triggerEventHandler('click', null);
-    expect(serviceSpy.login).toHaveBeenCalledWith(email, password);
+    expect(serviceSpy.login).toHaveBeenCalledWith(login, password);
   });
 });

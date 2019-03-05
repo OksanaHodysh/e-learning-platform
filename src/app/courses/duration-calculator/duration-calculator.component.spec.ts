@@ -18,14 +18,20 @@ class TestHostComponent {
   newCourse: Course = {
     id: 6,
     title: 'Test Course',
-    creationDate: '1970-01-01',
-    duration: '620',
-    topRated: false,
-    authors: ['Unknown Author'],
+    date: '1970-01-01',
+    duration: 620,
+    isTopRated: false,
+    authors: [
+      {
+        id: 1,
+        firstName: 'John',
+        lastName: 'Doe'
+      }
+    ],
     description: `Test`
   };
 
-  public setDuration(newDuration: string): void {
+  public setDuration(newDuration: number): void {
     this.newCourse.duration = newDuration;
   }
 }
@@ -61,10 +67,10 @@ describe('DurationCalculatorComponent', () => {
   it('should raise a duration change event', async(() => {
     fixture.whenStable().then(() => {
       const input = fixture.debugElement.query(By.css('#duration')).nativeElement;
-      expect(input.value).toBe('620');
-      input.value = '777';
+      expect(input.value).toBe(620);
+      input.value = 777;
       input.dispatchEvent(new Event('change'));
-      expect(testHost.newCourse.duration).toBe('777');
+      expect(testHost.newCourse.duration).toBe(777);
     });
   }));
 });

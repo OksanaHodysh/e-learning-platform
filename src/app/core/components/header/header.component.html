@@ -4,7 +4,7 @@
   </div>
   <div class="login-block">
     <div class="log-in">
-      <span>{{ getUserLogin() }}</span>
+      <span>{{ userEmail$ | async | lowercase }}</span>
     </div>
     <button
       class="log-out"

@@ -9,7 +9,7 @@ import { Course } from '../course.model';
 @Component({
   template: `
   <app-date-picker
-    [date]="newCourse.creationDate"
+    [date]="newCourse.date"
     (changeDate)="setNewDate($event)">
   </app-date-picker>`
 })
@@ -17,15 +17,21 @@ class TestHostComponent {
   newCourse: Course = {
     id: 6,
     title: 'Test Course',
-    creationDate: '1970-01-01',
-    duration: '2h 12min',
-    topRated: false,
-    authors: ['Unknown Author'],
+    date: '1970-01-01',
+    duration: 172,
+    isTopRated: false,
+    authors: [
+      {
+        id: 1,
+        firstName: 'John',
+        lastName: 'Doe'
+      }
+    ],
     description: `Test`
   };
 
   public setNewDate(newDate: string): void {
-    this.newCourse.creationDate = newDate;
+    this.newCourse.date = newDate;
   }
 }
 
@@ -62,7 +68,7 @@ describe('DatePickerComponent', () => {
       expect(input.value).toBe('1970-01-01');
       input.value = '1970-02-02';
       input.dispatchEvent(new Event('change'));
-      expect(testHost.newCourse.creationDate).toBe('1970-02-02');
+      expect(testHost.newCourse.date).toBe('1970-02-02');
     });
   }));
 });

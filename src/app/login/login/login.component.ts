@@ -7,20 +7,20 @@ import { AuthService } from 'src/app/core/services/auth.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  public userEmail: string;
+  public userLogin: string;
   public userPassword: string;
 
   constructor(private authService: AuthService) { }
 
   ngOnInit() {
-    this.userEmail = '';
+    this.userLogin = '';
     this.userPassword = '';
   }
 
   public logIn(): void {
-    if (this.userEmail && this.userPassword) {
+    if (this.userLogin && this.userPassword) {
       console.log('Logged In Successfully');
-      this.authService.login(this.userEmail, this.userPassword);
+      this.authService.login(this.userLogin, this.userPassword);
     }
   }
 

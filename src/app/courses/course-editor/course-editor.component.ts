@@ -1,6 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { switchMap } from 'rxjs/operators';
-import { of, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 
 import { Course } from '../course.model';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
@@ -28,23 +27,34 @@ export class CourseEditorComponent implements OnInit, CanComponentDeactivate {
     this.editedCourse = null;
     this.isSaved = false;
     this.newCourse = new Course(this.generateCourseId());
-    this.route.paramMap.pipe(
-      switchMap((params: ParamMap) =>
-        of(this.courseService.getCourseById(+params.get('id')))))
-        .subscribe((course: Course) => {
-          if (course) {
-            this.editedCourse = course;
-            this.newCourse = { ...course };
-          }
-        });
+    this.route.data.subscribe(
+      ({course}) => {
+        if (course) {
+          this.editedCourse = course;
+          this.newCourse = { ...course };
+        }
+    });
   }
 
   public get authors(): string {
-    return this.newCourse.authors.join(', ');
+    return this.newCourse.authors
+      .map(({firstName, lastName}) => lastName ?
+        `${firstName} ${lastName}` :
+        firstName)
+      .join(', ');
   }
 
   public set authors(value: string) {
-    this.newCourse.authors = value.split(',').map((item: string) => item.trim());
+    this.newCourse.authors = value.split(',')
+      .map((author: string) => {
+        const [firstName = '', lastName = ''] = author.trim().split(' ').map((item) => item && item.trim());
+
+        return {
+          id: Math.floor(Math.random() * Date.now()),
+          firstName,
+          lastName
+        };
+      });
   }
 
   public saveCourse(): void {
@@ -56,7 +66,7 @@ export class CourseEditorComponent implements OnInit, CanComponentDeactivate {
 
     this.isSaved = true;
 
-     this.router.navigate(['/courses']);
+    this.router.navigate(['/courses']);
   }
 
   public returnToCourses(): void {
@@ -65,10 +75,10 @@ export class CourseEditorComponent implements OnInit, CanComponentDeactivate {
 
   public setNewDate(newDate: string): void {
     console.log(newDate);
-    this.newCourse.creationDate = newDate;
+    this.newCourse.date = newDate;
   }
 
-  public setDuration(newDuration: string): void {
+  public setDuration(newDuration: number): void {
     console.log(newDuration);
     this.newCourse.duration = newDuration;
   }
@@ -86,6 +96,6 @@ export class CourseEditorComponent implements OnInit, CanComponentDeactivate {
   }
 
   private generateCourseId(): number {
-    return this.courseService.getCourses().length + 1;
+    return Math.trunc(Math.random() * Date.now());
   }
 }

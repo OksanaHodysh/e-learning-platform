@@ -36,7 +36,6 @@ describe('CourseEditorComponent', () => {
 
   beforeEach(async(() => {
     const corSpy = jasmine.createSpyObj('CourseService', [
-      'getCourses',
       'getCourseById',
       'createCourse',
       'updateCourse'
@@ -73,16 +72,21 @@ describe('CourseEditorComponent', () => {
     existingCourse = {
       id: 1,
       title: 'Angular 7 - The Complete Guide',
-      creationDate: '2019-01-29',
-      duration: '1688',
-      topRated: true,
-      authors: ['Maximilian Schwarzmüller'],
+      date: '2019-01-29',
+      duration: 1688,
+      isTopRated: true,
+      authors: [
+        {
+          id: 2,
+          firstName: 'Maximilian',
+          lastName: 'Schwarzmüller'
+        }
+      ],
       description: `This course starts from scratch, you neither need to know Angular 1 nor Angular 2!
         From Setup to Deployment, this course covers it all! You'll learn all about Components, Directives,
         Services, Forms, Http Access, Authentication, Optimizing an Angular App with Modules and Offline
         Compilation and much more - and in the end: You'll learn how to deploy an application!`
     };
-    coursesSpy.getCourses.and.returnValue([]);
     activatedRoute.setParamMap({id: 1});
   });
 
@@ -107,7 +111,7 @@ describe('CourseEditorComponent', () => {
     it('should set new course duration', () => {
       const durationCalcEl = fixture.debugElement.query(By.css('.duration-calc'));
       const durationCalc = durationCalcEl.componentInstance;
-      const newDuration = '77';
+      const newDuration = 77;
 
       durationCalc.changeDuration.emit(newDuration);
 
@@ -121,7 +125,7 @@ describe('CourseEditorComponent', () => {
 
       datePicker.changeDate.emit(newDate);
 
-      expect(component.newCourse.creationDate).toBe(newDate);
+      expect(component.newCourse.date).toBe(newDate);
     });
 
     it('should return to list of courses if there are no changes', () => {
@@ -180,8 +184,16 @@ describe('CourseEditorComponent', () => {
       component.authors = 'John Doe, Jane Doe';
       expect(spy2).toHaveBeenCalledWith('John Doe, Jane Doe');
       expect(component.newCourse.authors).toEqual([
-        'John Doe',
-        'Jane Doe'
+        {
+          id: 12,
+          firstName: 'John',
+          lastName: 'Doe'
+        },
+        {
+          id: 11,
+          firstName: 'Jane',
+          lastName: 'Doe'
+        }
       ]);
     }));
   });

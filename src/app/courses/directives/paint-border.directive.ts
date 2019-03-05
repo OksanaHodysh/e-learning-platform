@@ -4,7 +4,7 @@ import { Directive, Input, OnInit, HostBinding } from '@angular/core';
   selector: '[appPaintBorder]'
 })
 export class PaintBorderDirective implements OnInit {
-  @Input('appPaintBorder') creationDate: string;
+  @Input('appPaintBorder') date: string;
   @HostBinding('style.borderColor') borderColor = 'transparent';
 
   constructor() {}
@@ -15,7 +15,7 @@ export class PaintBorderDirective implements OnInit {
 
   private defineBorderColor(): void {
     const dayDuration = 24 * 60 * 60 * 1000;
-    const courseDate = new Date(this.creationDate);
+    const courseDate = new Date(this.date);
     const diff = Math.floor((Date.now() - courseDate.getTime()) / dayDuration);
 
     if (diff < 0) {

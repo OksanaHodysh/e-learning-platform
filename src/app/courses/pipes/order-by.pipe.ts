@@ -11,7 +11,7 @@ export class OrderByPipe implements PipeTransform {
       return value;
     }
 
-    if (fieldName === 'creationDate') {
+    if (fieldName === 'date') {
       value.sort((obj1, obj2) => new Date(obj1[fieldName]).getTime() - new Date(obj2[fieldName]).getTime());
     } else {
       value.sort((obj1, obj2) => obj1[fieldName] > obj2[fieldName] ? 1 : -1);
