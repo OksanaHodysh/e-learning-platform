@@ -1,38 +1,57 @@
 <div class="container">
   <div class="content">
     <h3 class="form-heading">Add a Course</h3>
-    <form class="edit-form">
+    <form
+      [formGroup]="courseForm"
+      (ngSubmit)="save()"
+      class="edit-form">
       <div class="section">
         <div class="section-name">
           <label for="title">Title:</label>
+          <div *ngIf="title.errors && title.touched"
+            class="error-hint">
+            <span [hidden]="!title.errors.required">
+              Title is required.
+            </span>
+            <span [hidden]="!title.errors.maxlength">
+              Title is more than 50 characters long.
+            </span>
+          </div>
         </div>
         <div class="section-control">
           <input
             type="text"
-            name="title"
             id="title"
-            [(ngModel)]="newCourse.title">
+            formControlName="title">
         </div>
       </div>
       <div class="section">
         <div class="section-name">
           <label for="description">Description:</label>
+          <div *ngIf="description.errors && description.touched"
+            class="error-hint">
+            <span [hidden]="!description.errors.required">
+              Description is required.
+            </span>
+            <span [hidden]="!description.errors.maxlength">
+              Description is more than 500 characters long.
+            </span>
+          </div>
         </div>
         <div class="section-control">
           <textarea
-            name="description"
             id="description"
             rows="4"
-            [(ngModel)]="newCourse.description">
+            formControlName="description">
           </textarea>
         </div>
       </div>
-      <app-date-picker
+      <!-- <app-date-picker
         class="date-picker"
         [date]="newCourse.date"
         (changeDate)="setNewDate($event)">
-      </app-date-picker>
-      <app-duration-calculator
+      </app-date-picker> -->
+      <!-- <app-duration-calculator
         class="duration-calc"
         [duration]="newCourse.duration"
         (changeDuration)="setDuration($event)">
@@ -46,14 +65,14 @@
             type="text"
             name="authors"
             id="authors"
-            [(ngModel)]="authors">
+            formControlName="authors">
         </div>
-      </div>
+      </div> -->
       <div class="form-control">
         <button
-          class="control-btn save"
           type="submit"
-          (click)="saveCourse()">
+          class="control-btn save"
+          [disabled]="courseForm.invalid">
           Save
         </button>
         <button

@@ -1,10 +1,14 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
 
 import { Course } from '../course.model';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { CourseService } from '../services/course.service';
 import { CanComponentDeactivate } from 'src/app/core/guards/can-deactivate.guard';
+import { AppState } from '../../store/app.reducers';
+import { Create, Update } from '../store/courses.actions';
 
 @Component({
   selector: 'app-course-editor',
@@ -16,11 +20,14 @@ export class CourseEditorComponent implements OnInit, CanComponentDeactivate {
   public newCourse: Course;
   public editedCourse: Course;
   public isSaved: boolean;
+  public courseForm: FormGroup;
 
   constructor(
+    private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private courseService: CourseService
+    private courseService: CourseService,
+    private store: Store<AppState>
   ) { }
 
   ngOnInit() {
@@ -34,6 +41,24 @@ export class CourseEditorComponent implements OnInit, CanComponentDeactivate {
           this.newCourse = { ...course };
         }
     });
+    this.courseForm = this.createForm();
+  }
+
+  public createForm(): FormGroup {
+    return this.formBuilder.group({
+      title: [this.newCourse.title, [Validators.required, Validators.maxLength(50)]],
+      description: [this.newCourse.description, [Validators.required, Validators.maxLength(500)]],
+      date: [this.newCourse.date],
+      duration: [this.newCourse.duration],
+      authors: this.formBuilder.array(this.newCourse.authors.map((author) => this.formBuilder.control(author)))
+    });
+  }
+  public get title(): FormControl {
+    return <FormControl>this.courseForm.get('title');
+  }
+
+  public get description(): FormControl {
+    return <FormControl>this.courseForm.get('description');
   }
 
   public get authors(): string {
@@ -64,9 +89,20 @@ export class CourseEditorComponent implements OnInit, CanComponentDeactivate {
       this.courseService.updateCourse(this.editedCourse, this.newCourse) :
       this.courseService.createCourse(this.newCourse);
 
+    this.editedCourse ?
+      this.store.dispatch(new Update(this.newCourse)) :
+      this.store.dispatch(new Create(this.newCourse));
+
+    this.store.select('courses').subscribe((state) => console.log(state));
+
     this.isSaved = true;
 
     this.router.navigate(['/courses']);
+  }
+
+  public save(): void {
+    console.log(this.courseForm.value);
+    console.log(this.courseForm);
   }
 
   public returnToCourses(): void {

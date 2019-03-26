@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { CoursesListComponent } from './courses-list/courses-list.component';
 import { CoursesListItemComponent } from './courses-list-item/courses-list-item.component';
@@ -33,6 +33,7 @@ import { CoursesHomeComponent } from './courses-home/courses-home.component';
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     CoursesRoutingModule
   ],
   exports: [

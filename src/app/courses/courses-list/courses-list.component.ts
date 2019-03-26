@@ -1,11 +1,15 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subject, Subscription } from 'rxjs';
+import { Observable, Subject, Subscription } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map, switchMap } from 'rxjs/operators';
+import { Store } from '@ngrx/store';
 
 import { Course } from '../course.model';
 import { FilterPipe } from '../pipes/filter.pipe';
 import { CourseService } from '../services/course.service';
+import { CoursesState } from '../store/courses.reducer';
+import { AppState } from '../../store/app.reducers';
+import { Load } from '../store/courses.actions';
 
 @Component({
   selector: 'app-courses-list',
@@ -14,6 +18,7 @@ import { CourseService } from '../services/course.service';
 })
 export class CoursesListComponent implements OnInit, OnDestroy {
   public courses: Array<Course> = [];
+  public courses$: Observable<CoursesState>;
   public searchTerm: string;
   public limit: number;
   public step: number;
@@ -24,10 +29,14 @@ export class CoursesListComponent implements OnInit, OnDestroy {
   constructor(
     private filterPipe: FilterPipe,
     private courseService: CourseService,
-    private router: Router
+    private router: Router,
+    private store: Store<AppState>
   ) { }
 
   ngOnInit() {
+    this.courses$ = this.store.select('courses');
+    this.store.dispatch(new Load());
+    this.courses$.subscribe((state) => console.log(state));
     this.step = 5;
     this.limit = this.step;
     this.searchTerm = '';

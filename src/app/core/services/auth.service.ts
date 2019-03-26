@@ -39,6 +39,10 @@ export class AuthService {
         () => console.log('No user found with such login and/or password.'));
   }
 
+  public login2(login: string, password: string): Observable<{token: string}> {
+    return this.http.post<AuthToken>(`${this.API_URL}/auth/login`, {login, password});
+  }
+
   public logout(): void {
     this.token = null;
     localStorage.removeItem('currentUser');

@@ -1,13 +1,16 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
+import { EffectsModule } from '@ngrx/effects';
 
+import { AppStoreModule } from './store/store.module';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
-import { StoreModule } from './store/store.module';
 import { CoursesModule } from './courses/courses.module';
 import { LoginModule } from './login/login.module';
 import { httpInterceptorProviders } from './core/interceptors';
+import { LoginEffects } from './login/store/login.effects';
+import { CoursesEffects } from './courses/store/courses.effects';
 
 @NgModule({
   declarations: [
@@ -18,8 +21,9 @@ import { httpInterceptorProviders } from './core/interceptors';
     HttpClientModule,
     CoursesModule,
     LoginModule,
-    StoreModule,
-    CoreModule
+    CoreModule,
+    AppStoreModule,
+    EffectsModule.forRoot([LoginEffects, CoursesEffects])
   ],
   providers: [
     httpInterceptorProviders
