@@ -45,7 +45,7 @@ describe('AuthService', () => {
   });
 
   it('should save user data to local storage', () => {
-    service.login(login, password);
+    service.logIn(login, password);
     expect(localStorage.setItem).toHaveBeenCalledWith(
       storeKey,
       JSON.stringify(
@@ -59,30 +59,12 @@ describe('AuthService', () => {
     expect(routerSpy.navigate).toHaveBeenCalled();
   });
 
-  it('should return true for authenticated user', () => {
-    service.login(login, password);
-    service.isAuthenticated();
-    expect(service.isAuthenticated()).toBe(true);
-  });
-
-  it('should return false for unauthenticated user', () => {
-    service.isAuthenticated();
-    expect(service.isAuthenticated()).toBe(false);
-  });
-
   it('should return no data if user is not logged in', () => {
     expect(service.getUserInfo()).toBeUndefined();
   });
 
   it('should return user data for logged in', () => {
-    service.login(login, password);
-    expect(service.getUserInfo()).toBe(login);
-  });
-
-  it('should log user out', () => {
-    service.login(login, password);
-    service.logout();
-    expect(localStorage.removeItem).toHaveBeenCalledWith(storeKey);
-    expect(routerSpy.navigate).toHaveBeenCalled();
+    service.logIn(login, password);
+    expect(service.getUserInfo()).toBeDefined();
   });
 });

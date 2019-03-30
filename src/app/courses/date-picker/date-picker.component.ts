@@ -1,21 +1,60 @@
-import { EventEmitter, Component, OnInit, Output, Input } from '@angular/core';
+import { Component, forwardRef, OnInit } from '@angular/core';
+import {
+  AbstractControl,
+  ControlValueAccessor,
+  FormControl,
+  NG_VALIDATORS,
+  NG_VALUE_ACCESSOR,
+  ValidationErrors,
+  Validators
+} from '@angular/forms';
 
 @Component({
   selector: 'app-date-picker',
   templateUrl: './date-picker.component.html',
-  styleUrls: ['./date-picker.component.scss']
+  styleUrls: ['./date-picker.component.scss'],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => DatePickerComponent),
+      multi: true
+    },
+    {
+      provide: NG_VALIDATORS,
+      useExisting: forwardRef(() => DatePickerComponent),
+      multi: true
+    }
+  ]
 })
-export class DatePickerComponent implements OnInit {
-  @Input() date: string;
-  @Output() changeDate = new EventEmitter<string>();
+export class DatePickerComponent implements OnInit, ControlValueAccessor, Validators {
+
+  public date: FormControl;
+
+  public onTouched: () => void;
 
   constructor() { }
 
-  ngOnInit() {
+  ngOnInit(): void {
+    this.date = new FormControl('', Validators.required);
   }
 
-  public setNewDate(event: Event): void {
-    this.changeDate.emit((event.target as HTMLInputElement).value);
+  writeValue(value: string): void {
+    this.date.setValue(value, { emitEvent: false });
   }
 
+  registerOnChange(fn: any): void {
+    this.date.valueChanges.subscribe(fn);
+  }
+
+  registerOnTouched(fn: any): void {
+    this.onTouched = fn;
+  }
+
+  setDisabledState(isDisabled: boolean): void {
+    isDisabled ? this.date.disable() : this.date.enable();
+  }
+
+  validate(c: AbstractControl): ValidationErrors | null {
+    return this.date.valid ? null : this.date.errors;
+  }
 }

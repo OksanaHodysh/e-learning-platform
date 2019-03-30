@@ -1,13 +1,18 @@
 <div class="section">
   <div class="section-name">
     <label for="date">Date:</label>
+    <div *ngIf="date.errors && date.touched"
+      class="error-hint">
+        <span [hidden]="!date.hasError('required')">
+          Date is required.
+        </span>
+    </div>
   </div>
   <div class="section-control">
     <input
-      type="date"
-      name="date"
-      id="date"
-      [(ngModel)]="date"
-      (change)="setNewDate($event)">
+        type="date"
+        id="date"
+        [formControl]="date"
+        (blur)="onTouched()">
   </div>
 </div>

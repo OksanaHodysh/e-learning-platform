@@ -6,13 +6,17 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { metaReducers } from './app.reducers';
 import { environment } from '../../environments/environment';
 import { reducers } from './app.reducers';
+import { CustomSerializer } from './custom-serializer';
 
 @NgModule({
   declarations: [],
   imports: [
     CommonModule,
     StoreModule.forRoot(reducers, { metaReducers }),
-    StoreRouterConnectingModule.forRoot(),
+    StoreRouterConnectingModule.forRoot({
+      stateKey: 'router',
+      serializer: CustomSerializer
+    }),
     !environment.production ?
       StoreDevtoolsModule.instrument({
         name: 'E-learning'

@@ -15,6 +15,7 @@ import { DatePickerComponent } from './date-picker/date-picker.component';
 import { DurationCalculatorComponent } from './duration-calculator/duration-calculator.component';
 import { CoursesRoutingModule } from './courses-routing.module';
 import { CoursesHomeComponent } from './courses-home/courses-home.component';
+import { AuthorsSelectComponent } from './authors-select/authors-select.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { CoursesHomeComponent } from './courses-home/courses-home.component';
     FilterPipe,
     DatePickerComponent,
     DurationCalculatorComponent,
-    CoursesHomeComponent
+    CoursesHomeComponent,
+    AuthorsSelectComponent
   ],
   imports: [
     CommonModule,

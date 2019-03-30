@@ -1,6 +1,6 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, Subject, Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map, switchMap } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 
@@ -10,21 +10,20 @@ import { CourseService } from '../services/course.service';
 import { CoursesState } from '../store/courses.reducer';
 import { AppState } from '../../store/app.reducers';
 import { Load } from '../store/courses.actions';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-courses-list',
   templateUrl: './courses-list.component.html',
   styleUrls: ['./courses-list.component.scss']
 })
-export class CoursesListComponent implements OnInit, OnDestroy {
+export class CoursesListComponent implements OnInit {
   public courses: Array<Course> = [];
   public courses$: Observable<CoursesState>;
-  public searchTerm: string;
+  public searchForm: FormControl;
   public limit: number;
   public step: number;
   public isLastPage = false;
-  private searchText$ = new Subject<string>();
-  private searchSubscription: Subscription;
 
   constructor(
     private filterPipe: FilterPipe,
@@ -39,15 +38,8 @@ export class CoursesListComponent implements OnInit, OnDestroy {
     this.courses$.subscribe((state) => console.log(state));
     this.step = 5;
     this.limit = this.step;
-    this.searchTerm = '';
-
-    this.courseService.getCourses(this.searchTerm, this.limit)
-      .subscribe(
-        (data) => this.setCourses(data),
-        (error) => console.log(error)
-      );
-
-    this.searchSubscription = this.searchText$.pipe(
+    this.searchForm = new FormControl();
+    this.searchForm.valueChanges.pipe(
       map((text) => text.length >= 3 ? text : ''),
       debounceTime(500),
       distinctUntilChanged(),
@@ -59,11 +51,8 @@ export class CoursesListComponent implements OnInit, OnDestroy {
       this.isLastPage = false;
       this.setCourses(data);
     });
-  }
 
-  public findCourses(textFragment: string): void {
-    this.searchTerm = textFragment;
-    this.searchText$.next(this.searchTerm.trim());
+    this.searchForm.setValue('');
   }
 
   public deleteCourse(courseId: number): void {
@@ -71,7 +60,7 @@ export class CoursesListComponent implements OnInit, OnDestroy {
     if (deletionConfirmed) {
       this.courseService.removeCourse(courseId).pipe(
         switchMap(() => (
-          this.courseService.getCourses(this.searchTerm, this.limit)
+          this.courseService.getCourses(this.searchForm.value, this.limit)
         ))
       ).subscribe(
         (data) => this.setCourses(data),
@@ -86,7 +75,7 @@ export class CoursesListComponent implements OnInit, OnDestroy {
 
   public loadMore(): void {
       this.limit += this.step;
-      this.courseService.getCourses(this.searchTerm, this.limit)
+      this.courseService.getCourses(this.searchForm.value, this.limit)
         .subscribe(
           (data) => this.setCourses(data),
           (error) => console.log(error)
@@ -101,10 +90,5 @@ export class CoursesListComponent implements OnInit, OnDestroy {
       this.isLastPage = true;
     }
     this.courses = courses;
-  }
-
-  ngOnDestroy() {
-    console.log('Unsubsribed!');
-    this.searchSubscription.unsubscribe();
   }
 }

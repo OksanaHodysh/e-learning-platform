@@ -1,6 +1,12 @@
 <div class="container">
   <div class="content">
     <h3 class="form-heading">Add a Course</h3>
+    <div>
+      <div>Value: {{courseForm.get('duration').value}}</div>
+      <div> Dirty: {{courseForm.get('duration').dirty}}</div>
+      <div>Touched: {{courseForm.get('duration').touched}}</div>
+      <div>Errors: {{courseForm.get('duration').hasError('required')}}</div>
+    </div>
     <form
       [formGroup]="courseForm"
       (ngSubmit)="save()"
@@ -10,10 +16,10 @@
           <label for="title">Title:</label>
           <div *ngIf="title.errors && title.touched"
             class="error-hint">
-            <span [hidden]="!title.errors.required">
+            <span [hidden]="!title.hasError('required')">
               Title is required.
             </span>
-            <span [hidden]="!title.errors.maxlength">
+            <span [hidden]="!title.hasError('maxlength')">
               Title is more than 50 characters long.
             </span>
           </div>
@@ -30,10 +36,10 @@
           <label for="description">Description:</label>
           <div *ngIf="description.errors && description.touched"
             class="error-hint">
-            <span [hidden]="!description.errors.required">
+            <span [hidden]="!description.hasError('required')">
               Description is required.
             </span>
-            <span [hidden]="!description.errors.maxlength">
+            <span [hidden]="!description.hasError('maxlength')">
               Description is more than 500 characters long.
             </span>
           </div>
@@ -46,28 +52,20 @@
           </textarea>
         </div>
       </div>
-      <!-- <app-date-picker
+      <app-date-picker
         class="date-picker"
-        [date]="newCourse.date"
-        (changeDate)="setNewDate($event)">
-      </app-date-picker> -->
-      <!-- <app-duration-calculator
+        formControlName="date">
+      </app-date-picker>
+      <app-duration-calculator
         class="duration-calc"
-        [duration]="newCourse.duration"
-        (changeDuration)="setDuration($event)">
+        formControlName="duration">
       </app-duration-calculator>
-      <div class="section">
-        <div class="section-name">
-          <label for="authors">Authors:</label>
-        </div>
-        <div class="section-control">
-          <input
-            type="text"
-            name="authors"
-            id="authors"
-            formControlName="authors">
-        </div>
-      </div> -->
+      <app-authors-select
+        class="authors-select"
+        [authors]="authors$ | async"
+        [selectedAuthors]="newCourse.authors"
+        formArrayName="authors">
+      </app-authors-select>
       <div class="form-control">
         <button
           type="submit"

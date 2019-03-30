@@ -21,7 +21,9 @@ export function loginReducer(
         case LoginActionsEnum.LoginSuccess: {
             return {
                 ...state,
-                isAuthenticated: true
+                isAuthenticated: true,
+                token: action.token,
+                userData: action.userData
             };
         }
 
@@ -31,13 +33,6 @@ export function loginReducer(
                 isAuthenticated: false,
                 token: null,
                 userData: null
-            };
-        }
-
-        case LoginActionsEnum.SetToken: {
-            return {
-                ...state,
-                token: action.token
             };
         }
 

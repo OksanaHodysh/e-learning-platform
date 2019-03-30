@@ -23,3 +23,18 @@
         border-color: #FDBC42;
     }
 }
+
+.section-name {
+    display: flex;
+    justify-content: space-between;
+}
+
+input.ng-invalid.ng-touched {
+    border: 1px solid red;
+}
+
+.error-hint {
+    color: red;
+    font-weight: bold;
+    font-size: 0.75em;
+}

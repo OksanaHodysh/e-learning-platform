@@ -9,6 +9,7 @@ import { CourseService } from '../services/course.service';
 import { CanComponentDeactivate } from 'src/app/core/guards/can-deactivate.guard';
 import { AppState } from '../../store/app.reducers';
 import { Create, Update } from '../store/courses.actions';
+import { SelectedAuthor } from '../authors-select/authors-select.component';
 
 @Component({
   selector: 'app-course-editor',
@@ -21,6 +22,7 @@ export class CourseEditorComponent implements OnInit, CanComponentDeactivate {
   public editedCourse: Course;
   public isSaved: boolean;
   public courseForm: FormGroup;
+  public authors$: Observable<Array<SelectedAuthor>>;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -42,13 +44,14 @@ export class CourseEditorComponent implements OnInit, CanComponentDeactivate {
         }
     });
     this.courseForm = this.createForm();
+    this.authors$ = this.courseService.getAuthors();
   }
 
   public createForm(): FormGroup {
     return this.formBuilder.group({
       title: [this.newCourse.title, [Validators.required, Validators.maxLength(50)]],
       description: [this.newCourse.description, [Validators.required, Validators.maxLength(500)]],
-      date: [this.newCourse.date],
+      date: [this.newCourse.date.slice(0, 10)],
       duration: [this.newCourse.duration],
       authors: this.formBuilder.array(this.newCourse.authors.map((author) => this.formBuilder.control(author)))
     });

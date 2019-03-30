@@ -1,18 +1,26 @@
 <div class="section">
   <div class="section-name">
     <label for="duration">Duration:</label>
+    <div *ngIf="duration.errors && duration.touched"
+        class="error-hint">
+        <span [hidden]="!duration.hasError('required')">
+          Duration is required.
+        </span>
+        <span [hidden]="!duration.hasError('pattern')">
+          Duration should be a positive number.
+        </span>
+    </div>
   </div>
   <div class="section-control">
     <div class="numeric-value">
       <input
         type="number"
-        name="duration"
         id="duration"
-        [(ngModel)]="duration"
-        (change)="setDuration($event)">
+        [formControl]="duration"
+        (blur)="onTouched()">
     </div>
     <div class="text-value">
-      <span>{{duration | duration}}</span>
+      <span>{{duration.value | duration}}</span>
     </div>
   </div>
 </div>

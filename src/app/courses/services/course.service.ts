@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, Subscription } from 'rxjs';
 
-import { Course } from '../course.model';
+import { Author, Course } from '../course.model';
 import { courses } from './courses.mock';
+import { SelectedAuthor } from '../authors-select/authors-select.component';
 
 @Injectable()
 export class CourseService {
@@ -20,6 +21,13 @@ export class CourseService {
         .set('textFragment', `${textFragment}`)
         .set('start', `${from}`)
         .set('count', `${to}`)
+    });
+  }
+
+  public getAuthors(textFragment = ''): Observable<Array<SelectedAuthor>> {
+    return this.http.get<Array<SelectedAuthor>>(`${this.API_URL}/authors`, {
+      params: new HttpParams()
+        .set('textFragment', `${textFragment}`)
     });
   }
 

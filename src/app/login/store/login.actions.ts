@@ -5,7 +5,7 @@ export enum LoginActionsEnum {
     LoginSuccess = '[Login] Login Success',
     LoginFail = '[Login] Login Fail',
     Logout = '[Login] Logout',
-    SetToken = '[Login] Set Token'
+    GetUser = '[Login] Get User',
 }
 
 export class Login implements Action {
@@ -16,6 +16,8 @@ export class Login implements Action {
 
 export class LoginSuccess implements Action {
     public readonly type = LoginActionsEnum.LoginSuccess;
+
+    public constructor(public userData: string, public token: string) {}
 }
 
 export class LoginFail implements Action {
@@ -28,10 +30,12 @@ export class Logout implements Action {
     public readonly type = LoginActionsEnum.Logout;
 }
 
-export class SetToken implements Action {
-    public readonly type = LoginActionsEnum.SetToken;
-
-    public constructor(public token: string) {}
+export class GetUser implements Action {
+    public readonly type = LoginActionsEnum.GetUser;
 }
 
-export type LoginAction = Login | LoginSuccess | LoginFail | Logout | SetToken;
+export type LoginAction = Login |
+  LoginSuccess |
+  LoginFail |
+  Logout |
+  GetUser;

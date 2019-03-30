@@ -1,17 +1,11 @@
-import { Params } from '@angular/router';
 import { ActionReducerMap, MetaReducer, createFeatureSelector } from '@ngrx/store';
 import { routerReducer, RouterReducerState } from '@ngrx/router-store';
 import { storeFreeze } from 'ngrx-store-freeze';
 
 import { CoursesState, coursesReducer } from '../courses/store/courses.reducer';
 import { LoginState, loginReducer } from '../login/store/login.reducer';
+import { RouterStateUrl } from './custom-serializer';
 import { environment } from '../../environments/environment';
-
-export interface RouterStateUrl {
-    url: string;
-    queryParams: Params;
-    params: Params;
-}
 
 export interface AppState {
     courses: CoursesState;
