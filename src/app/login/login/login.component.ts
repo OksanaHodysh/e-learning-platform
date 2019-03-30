@@ -36,7 +36,6 @@ export class LoginComponent implements OnInit {
     const {login, password} = this.loginForm.value;
 
     this.store.dispatch(new Login(login, password));
-    this.store.select('login').subscribe((state) => console.log(state));
   }
 
 }

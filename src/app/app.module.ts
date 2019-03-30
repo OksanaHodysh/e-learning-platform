@@ -10,7 +10,6 @@ import { CoursesModule } from './courses/courses.module';
 import { LoginModule } from './login/login.module';
 import { httpInterceptorProviders } from './core/interceptors';
 import { LoginEffects } from './login/store/login.effects';
-import { CoursesEffects } from './courses/store/courses.effects';
 
 @NgModule({
   declarations: [
@@ -23,7 +22,7 @@ import { CoursesEffects } from './courses/store/courses.effects';
     LoginModule,
     CoreModule,
     AppStoreModule,
-    EffectsModule.forRoot([LoginEffects, CoursesEffects])
+    EffectsModule.forRoot([LoginEffects])
   ],
   providers: [
     httpInterceptorProviders

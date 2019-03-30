@@ -2,15 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map, switchMap } from 'rxjs/operators';
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 
-import { Course } from '../course.model';
+import { Course } from '../models/course.model';
 import { FilterPipe } from '../pipes/filter.pipe';
 import { CourseService } from '../services/course.service';
 import { CoursesState } from '../store/courses.reducer';
 import { AppState } from '../../store/app.reducers';
-import { Load } from '../store/courses.actions';
+import { LoadCourses } from '../store/courses.actions';
 import { FormControl } from '@angular/forms';
+import { selectCourses } from '../store/courses.selectors';
 
 @Component({
   selector: 'app-courses-list',
@@ -19,7 +20,7 @@ import { FormControl } from '@angular/forms';
 })
 export class CoursesListComponent implements OnInit {
   public courses: Array<Course> = [];
-  public courses$: Observable<CoursesState>;
+  public courses$: Observable<Array<Course>>;
   public searchForm: FormControl;
   public limit: number;
   public step: number;
@@ -33,9 +34,10 @@ export class CoursesListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.courses$ = this.store.select('courses');
-    this.store.dispatch(new Load());
-    this.courses$.subscribe((state) => console.log(state));
+    this.store.dispatch(new LoadCourses());
+    this.courses$ = this.store.pipe(
+      select(selectCourses)
+    );
     this.step = 5;
     this.limit = this.step;
     this.searchForm = new FormControl();

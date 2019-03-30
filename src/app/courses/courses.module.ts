@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
 
 import { CoursesListComponent } from './courses-list/courses-list.component';
 import { CoursesListItemComponent } from './courses-list-item/courses-list-item.component';
@@ -16,6 +18,12 @@ import { DurationCalculatorComponent } from './duration-calculator/duration-calc
 import { CoursesRoutingModule } from './courses-routing.module';
 import { CoursesHomeComponent } from './courses-home/courses-home.component';
 import { AuthorsSelectComponent } from './authors-select/authors-select.component';
+import { AuthorsEffects } from './store/authors.effects';
+import { CoursesEffects } from './store/courses.effects';
+import { authorsReducer } from './store/authors.reducer';
+import { coursesReducer } from './store/courses.reducer';
+import { FilterAuthorsPipe } from './pipes/filter-authors.pipe';
+import { ClickOutsideDirective } from './directives/click-outside.directive';
 
 @NgModule({
   declarations: [
@@ -30,13 +38,18 @@ import { AuthorsSelectComponent } from './authors-select/authors-select.componen
     DatePickerComponent,
     DurationCalculatorComponent,
     CoursesHomeComponent,
-    AuthorsSelectComponent
+    AuthorsSelectComponent,
+    FilterAuthorsPipe,
+    ClickOutsideDirective
   ],
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    CoursesRoutingModule
+    CoursesRoutingModule,
+    StoreModule.forFeature('courses', coursesReducer),
+    StoreModule.forFeature('lessons', authorsReducer),
+    EffectsModule.forFeature([CoursesEffects, AuthorsEffects])
   ],
   exports: [
     CoursesListComponent

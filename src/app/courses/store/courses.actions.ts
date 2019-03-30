@@ -1,55 +1,78 @@
 import { Action } from '@ngrx/store';
 
-import { Course } from '../course.model';
+import { Course } from '../models/course.model';
 
 export enum CoursesActionsEnum {
-    Load = '[Courses] Load',
-    LoadFail = '[Courses] Load Fail',
-    LoadSuccess = '[Courses] Load Success',
-    Create = '[Courses] Create',
-    Update = '[Courses] Update',
-    Delete = '[Courses] Delete',
-    SetEditing = '[Courses] Set Editing'
+    LoadCourses = '[Courses] Load Courses',
+    LoadCoursesFail = '[Courses] Load Courses Fail',
+    LoadCoursesSuccess = '[Courses] Load Courses Success',
+    LoadCourse = '[Courses] Load Course',
+    LoadCourseFail = '[Courses] Load Course Fail',
+    LoadCourseSuccess = '[Courses] Load Course Success',
+    CreateCourse = '[Courses] Create Course',
+    UpdateCourse = '[Courses] Update Course',
+    DeleteCourse = '[Courses] Delete Course'
 }
 
-export class Load implements Action {
-    public readonly type = CoursesActionsEnum.Load;
+export class LoadCourses implements Action {
+    public readonly type = CoursesActionsEnum.LoadCourses;
 }
 
-export class LoadFail implements Action {
-    public readonly type = CoursesActionsEnum.LoadFail;
+export class LoadCoursesFail implements Action {
+    public readonly type = CoursesActionsEnum.LoadCoursesFail;
 
     public constructor(public message: string) {}
 }
 
-export class LoadSuccess implements Action {
-    public readonly type = CoursesActionsEnum.LoadSuccess;
+export class LoadCoursesSuccess implements Action {
+    public readonly type = CoursesActionsEnum.LoadCoursesSuccess;
 
     public constructor(public courses: Array<Course>) {}
 }
 
-export class Create implements Action {
-    public readonly type = CoursesActionsEnum.Create;
+export class LoadCourse implements Action {
+    public readonly type = CoursesActionsEnum.LoadCourse;
+
+    public constructor(public courseId: number) {}
+}
+
+export class LoadCourseSuccess implements Action {
+    public readonly type = CoursesActionsEnum.LoadCourseSuccess;
 
     public constructor(public course: Course) {}
 }
 
-export class Update implements Action {
-    public readonly type = CoursesActionsEnum.Update;
+export class LoadCourseFail implements Action {
+    public readonly type = CoursesActionsEnum.LoadCourseFail;
+
+    public constructor(public message: string) {}
+}
+
+export class CreateCourse implements Action {
+    public readonly type = CoursesActionsEnum.CreateCourse;
 
     public constructor(public course: Course) {}
 }
 
-export class Delete implements Action {
-    public readonly type = CoursesActionsEnum.Delete;
+export class UpdateCourse implements Action {
+    public readonly type = CoursesActionsEnum.UpdateCourse;
 
     public constructor(public course: Course) {}
 }
 
-export class SetEditing implements Action {
-    public readonly type = CoursesActionsEnum.SetEditing;
+export class DeleteCourse implements Action {
+    public readonly type = CoursesActionsEnum.DeleteCourse;
 
-    public constructor(public isEditingMode: boolean) {}
+    public constructor(public course: Course) {}
 }
 
-export type CoursesAction = Load | LoadFail | LoadSuccess | Create | Update | Delete | SetEditing;
+export type CoursesAction = LoadCourses |
+  LoadCoursesFail |
+  LoadCoursesSuccess |
+  LoadCoursesFail |
+  LoadCourse |
+  LoadCourseSuccess |
+  LoadCourseFail |
+  CreateCourse |
+  UpdateCourse |
+  DeleteCourse;

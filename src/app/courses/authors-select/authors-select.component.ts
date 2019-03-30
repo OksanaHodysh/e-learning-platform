@@ -1,53 +1,72 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { FormArray, FormControl, FormGroup } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, forwardRef, Input } from '@angular/core';
+import { Author } from '../models/author.model';
+import { AbstractControl, ControlValueAccessor, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validators } from '@angular/forms';
 
-export interface SelectedAuthor {
-  id: string;
-  name: string;
-}
+const AUTHORS_ACCESSOR = {
+  provide: NG_VALUE_ACCESSOR,
+  useExisting: forwardRef(() => AuthorsSelectComponent),
+  multi: true,
+};
+
+const AUTHORS_VALIDATOR = {
+  provide: NG_VALIDATORS,
+  useExisting: forwardRef(() => AuthorsSelectComponent),
+  multi: true
+};
 
 @Component({
   selector: 'app-authors-select',
   templateUrl: './authors-select.component.html',
   styleUrls: ['./authors-select.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [AUTHORS_ACCESSOR, AUTHORS_VALIDATOR]
 })
-export class AuthorsSelectComponent implements OnInit, OnChanges {
+export class AuthorsSelectComponent implements ControlValueAccessor, Validators {
 
-  @Input() authors: Array<SelectedAuthor> = [];
-  @Input() selectedAuthors: Array<SelectedAuthor> = [];
+  @Input() authors: Array<Author> = [];
+  @Input() showError: boolean;
 
-  public chosenAuthors: FormGroup;
-  public openSuggestions: boolean;
+  public value: Array<Author>;
+  public openSuggestions = false;
+  public searchTerm = '';
+
+  public onChange: (value: Array<Author>) => void;
+  public onTouched: () => void;
 
   constructor() { }
 
-  ngOnInit() {
-    this.chosenAuthors = new FormGroup({
-      authors: new FormArray([])
-    });
+  writeValue(value: Array<Author>): void {
+    this.value = value;
   }
 
-  ngOnChanges({authors}: SimpleChanges): void {
-    if (authors.currentValue) {
-      console.log(this.authors);
-    }
+  registerOnChange(fn: any): void {
+    this.onChange = fn;
   }
 
-  public get myAuthors(): FormArray {
-    return <FormArray>this.chosenAuthors.get('authors');
+  registerOnTouched(fn: any): void {
+    this.onTouched = fn;
   }
 
   public showSuggestions(show: boolean): void {
     this.openSuggestions = show;
   }
 
-  public addAuthor(author: SelectedAuthor): void {
-    console.log(author);
+  public addAuthor(author: Author): void {
+    this.searchTerm = '';
+    this.value = [...this.value, author];
+    this.onTouched();
+    this.onChange(this.value);
     this.showSuggestions(false);
   }
 
-  public removeAuthor(author: SelectedAuthor): void {
-    console.log(author);
+  public removeAuthor(author: Author): void {
+    this.value = this.value.filter(({id}) => id !== author.id);
+    this.onTouched();
+    this.onChange(this.value);
+  }
+
+  validate(c: AbstractControl): ValidationErrors | null {
+    return this.value && this.value.length > 0 ? null : {required: true};
   }
 
 }

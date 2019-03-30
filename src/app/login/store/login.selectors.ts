@@ -1,8 +1,8 @@
-import { createSelector } from '@ngrx/store';
+import { createFeatureSelector, createSelector } from '@ngrx/store';
 
-import { AppState } from '../../store/app.reducers';
+import { LoginState } from './login.reducer';
 
-export const selectLoginState = (state: AppState) =>  state.login;
+export const selectLoginState = createFeatureSelector<LoginState>('login');
 
 export const authenticated = createSelector(
   selectLoginState,

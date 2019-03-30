@@ -1,8 +1,4 @@
-export interface Author {
-    id: number;
-    firstName: string;
-    lastName: string;
-}
+import { Author } from './author.model';
 
 interface CoursesListItem {
     id: number;

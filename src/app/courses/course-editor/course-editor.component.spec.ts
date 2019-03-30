@@ -8,7 +8,7 @@ import { CourseEditorComponent } from './course-editor.component';
 import { DurationCalculatorComponent } from '../duration-calculator/duration-calculator.component';
 import { DatePickerComponent } from '../date-picker/date-picker.component';
 import { DurationPipe } from '../pipes/duration.pipe';
-import { Course } from '../course.model';
+import { Course } from '../models/course.model';
 import { CourseService } from '../services/course.service';
 
 class ActivatedRouteStub {

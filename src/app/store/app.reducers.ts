@@ -2,20 +2,17 @@ import { ActionReducerMap, MetaReducer, createFeatureSelector } from '@ngrx/stor
 import { routerReducer, RouterReducerState } from '@ngrx/router-store';
 import { storeFreeze } from 'ngrx-store-freeze';
 
-import { CoursesState, coursesReducer } from '../courses/store/courses.reducer';
 import { LoginState, loginReducer } from '../login/store/login.reducer';
 import { RouterStateUrl } from './custom-serializer';
 import { environment } from '../../environments/environment';
 
 export interface AppState {
-    courses: CoursesState;
     login: LoginState;
     router: RouterReducerState<RouterStateUrl>;
 }
 
 
 export const reducers: ActionReducerMap<AppState> = {
-    courses: coursesReducer,
     login: loginReducer,
     router: routerReducer
 };

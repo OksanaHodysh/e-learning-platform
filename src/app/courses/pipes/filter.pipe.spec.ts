@@ -1,5 +1,5 @@
 import { FilterPipe } from './filter.pipe';
-import { Course } from '../course.model';
+import { Course } from '../models/course.model';
 
 describe('FilterPipe', () => {
   let pipe: FilterPipe;

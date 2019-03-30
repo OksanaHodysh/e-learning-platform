@@ -1,12 +1,6 @@
 <div class="container">
   <div class="content">
     <h3 class="form-heading">Add a Course</h3>
-    <div>
-      <div>Value: {{courseForm.get('duration').value}}</div>
-      <div> Dirty: {{courseForm.get('duration').dirty}}</div>
-      <div>Touched: {{courseForm.get('duration').touched}}</div>
-      <div>Errors: {{courseForm.get('duration').hasError('required')}}</div>
-    </div>
     <form
       [formGroup]="courseForm"
       (ngSubmit)="save()"
@@ -63,8 +57,8 @@
       <app-authors-select
         class="authors-select"
         [authors]="authors$ | async"
-        [selectedAuthors]="newCourse.authors"
-        formArrayName="authors">
+        [showError]="authors.errors && authors.touched"
+        formControlName="authors">
       </app-authors-select>
       <div class="form-control">
         <button

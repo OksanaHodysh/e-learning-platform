@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 
 import { CourseService } from './course.service';
 import { courses } from './courses.mock';
-import { Course } from '../course.model';
+import { Course } from '../models/course.model';
 
 describe('CourseService', () => {
   let service: CourseService;

@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { By } from '@angular/platform-browser';
 
 import { CoursesListItemComponent } from './courses-list-item.component';
-import { Course } from '../course.model';
+import { Course } from '../models/course.model';
 import { DurationPipe } from '../pipes/duration.pipe';
 
 // Approach 2: Test host testing

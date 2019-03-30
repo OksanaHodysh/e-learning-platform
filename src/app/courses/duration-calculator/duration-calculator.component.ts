@@ -1,4 +1,4 @@
-import { Component, forwardRef, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, forwardRef, OnInit } from '@angular/core';
 import {
   AbstractControl,
   ControlValueAccessor,
@@ -13,6 +13,7 @@ import {
   selector: 'app-duration-calculator',
   templateUrl: './duration-calculator.component.html',
   styleUrls: ['./duration-calculator.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
