@@ -14,6 +14,7 @@ export enum CoursesActionsEnum {
     DeleteCourse = '[Courses] Delete Course',
     DeleteCourseSuccess = '[Courses] Delete Course Success',
     EditCourse = '[Courses] Edit Course',
+    CancelEditCourse = '[Courses] Cancel Edit Course',
     ActionFail = '[Courses] Action Fail'
 }
 
@@ -81,6 +82,10 @@ export class EditCourse implements Action {
     public constructor(public courseId: number) {}
 }
 
+export class CancelEditCourse implements Action {
+    public readonly type = CoursesActionsEnum.CancelEditCourse;
+}
+
 export class ActionFail implements Action {
     public readonly type = CoursesActionsEnum.ActionFail;
 
@@ -98,4 +103,5 @@ export type CoursesAction = LoadCourses |
   DeleteCourse |
   DeleteCourseSuccess |
   EditCourse |
+  CancelEditCourse |
   ActionFail;

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, RouterStateSnapshot, Router, Resolve } from '@angular/router';
+import { ActivatedRouteSnapshot, RouterStateSnapshot, Resolve } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { filter, take, tap } from 'rxjs/operators';
@@ -14,10 +14,7 @@ import { LoadCourse } from '../../courses/store/courses.actions';
 })
 export class CourseResolverGuard implements Resolve<Course> {
 
-  constructor(
-    private store: Store<AppState>,
-    private router: Router
-  ) {}
+  constructor(private store: Store<AppState>) {}
 
   resolve(
     route: ActivatedRouteSnapshot,

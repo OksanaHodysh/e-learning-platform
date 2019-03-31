@@ -1,15 +1,16 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 
 import { Course } from '../models/course.model';
-import { ActivatedRoute, Router } from '@angular/router';
-import { CourseService } from '../services/course.service';
 import { CanComponentDeactivate } from 'src/app/core/guards/can-deactivate.guard';
 import { AppState } from '../../store/app.reducers';
-import { CreateCourse, UpdateCourse } from '../store/courses.actions';
+import { CancelEditCourse, CreateCourse, UpdateCourse } from '../store/courses.actions';
 import { Author } from '../models/author.model';
+import { LoadAuthors } from '../store/authors.actions';
+import { selectAuthors } from '../store/authors.selectors';
 
 @Component({
   selector: 'app-course-editor',
@@ -27,8 +28,6 @@ export class CourseEditorComponent implements OnInit, CanComponentDeactivate {
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
-    private router: Router,
-    private courseService: CourseService,
     private store: Store<AppState>
   ) { }
 
@@ -44,8 +43,12 @@ export class CourseEditorComponent implements OnInit, CanComponentDeactivate {
         }
     });
     this.courseForm = this.createForm();
-    console.log(this.courseForm);
-    this.authors$ = this.courseService.getAuthors();
+
+    this.store.dispatch(new LoadAuthors());
+
+    this.authors$ = this.store.pipe(
+      select(selectAuthors)
+    );
   }
 
   public createForm(): FormGroup {
@@ -70,36 +73,24 @@ export class CourseEditorComponent implements OnInit, CanComponentDeactivate {
   }
 
   public saveCourse(): void {
-    console.log('Changes saved successfully.');
-    console.log(this.newCourse);
+    const newCourse = {...this.newCourse, ...this.courseForm.value};
+    console.log(newCourse);
     this.editedCourse ?
-      this.courseService.updateCourse(this.editedCourse, this.newCourse) :
-      this.courseService.createCourse(this.newCourse);
-
-    this.editedCourse ?
-      this.store.dispatch(new UpdateCourse(this.newCourse)) :
-      this.store.dispatch(new CreateCourse(this.newCourse));
+      this.store.dispatch(new UpdateCourse(newCourse)) :
+      this.store.dispatch(new CreateCourse(newCourse));
 
     this.isSaved = true;
-
-    this.router.navigate(['/courses']);
-  }
-
-  public save(): void {
-    console.log(this.courseForm.value);
-    console.log(this.courseForm);
-    this.store.select('courses').subscribe((state) => console.log(state));
   }
 
   public returnToCourses(): void {
-    this.router.navigate(['/courses']);
+    this.store.dispatch(new CancelEditCourse());
   }
 
   public canDeactivate(): Observable<boolean> | Promise<boolean> | boolean {
     const unsavedChanges = !this.isSaved &&
       this.editedCourse &&
-      Object.keys(this.editedCourse).some((key: string) => {
-        return this.editedCourse[key] !== this.newCourse[key];
+      Object.keys(this.courseForm.value).some((key: string) => {
+        return this.courseForm.value[key] !== this.newCourse[key];
     });
 
     return unsavedChanges ?

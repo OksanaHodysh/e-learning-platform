@@ -1,15 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { FormControl } from '@angular/forms';
 import { BehaviorSubject, Observable, combineLatest } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map, switchMap, tap } from 'rxjs/operators';
 import { select, Store } from '@ngrx/store';
 
 import { Course } from '../models/course.model';
-import { CourseService } from '../services/course.service';
 import { AppState } from '../../store/app.reducers';
 import { DeleteCourse, EditCourse, LoadCourses } from '../store/courses.actions';
-import { FormControl } from '@angular/forms';
-import { selectCourses, selectSearchedCourses } from '../store/courses.selectors';
+import { selectSearchedCourses } from '../store/courses.selectors';
 
 @Component({
   selector: 'app-courses-list',
@@ -27,11 +25,7 @@ export class CoursesListComponent implements OnInit {
   public searchForm: FormControl;
   public isLastPage = false;
 
-  constructor(
-    private courseService: CourseService,
-    private router: Router,
-    private store: Store<AppState>
-  ) { }
+  constructor(private store: Store<AppState>) { }
 
   ngOnInit() {
     this.store.dispatch(new LoadCourses());

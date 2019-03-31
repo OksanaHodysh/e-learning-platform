@@ -10,8 +10,6 @@ export enum AuthorsActionsEnum {
 
 export class LoadAuthors implements Action {
   public readonly type = AuthorsActionsEnum.LoadAuthors;
-
-  public constructor(public searchText: string) {}
 }
 
 export class LoadAuthorsFail implements Action {

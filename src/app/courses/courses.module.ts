@@ -48,7 +48,7 @@ import { ClickOutsideDirective } from './directives/click-outside.directive';
     ReactiveFormsModule,
     CoursesRoutingModule,
     StoreModule.forFeature('courses', coursesReducer),
-    StoreModule.forFeature('lessons', authorsReducer),
+    StoreModule.forFeature('authors', authorsReducer),
     EffectsModule.forFeature([CoursesEffects, AuthorsEffects])
   ],
   exports: [

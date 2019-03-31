@@ -2,10 +2,6 @@ import { Course } from '../models/course.model';
 import { CoursesAction, CoursesActionsEnum } from './courses.actions';
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 
-export interface FeatureState {
-    courses: CoursesState;
-}
-
 export interface CoursesState extends EntityState<Course> {
     coursesLoaded: boolean;
 }
@@ -17,33 +13,34 @@ export const initialState: CoursesState = adapter.getInitialState({
 });
 
 export function coursesReducer(
-    state = initialState,
-    action: CoursesAction
+  state = initialState,
+  action: CoursesAction
 ): CoursesState {
     switch (action.type) {
 
-        case CoursesActionsEnum.LoadCoursesSuccess: {
-            return adapter.addAll(
-              action.courses,
-              {...state, coursesLoaded: true}
-            );
-        }
+      case CoursesActionsEnum.LoadCoursesSuccess: {
+        return adapter.addAll(
+          action.courses,
+          {...state, coursesLoaded: true}
+        );
+      }
 
-        case CoursesActionsEnum.LoadCourseSuccess: {
-            return adapter.addOne(action.course, state);
-        }
+      case CoursesActionsEnum.LoadCourseSuccess: {
+        return adapter.addOne(action.course, state);
+      }
 
-        case CoursesActionsEnum.UpdateCourse: {
-            return adapter.upsertOne(action.course, state);
-        }
+      case CoursesActionsEnum.CreateCourseSuccess:
+      case CoursesActionsEnum.UpdateCourseSuccess: {
+        return adapter.upsertOne(action.course, state);
+      }
 
-        case CoursesActionsEnum.DeleteCourseSuccess: {
-            return adapter.removeOne(action.courseId, state);
-        }
+      case CoursesActionsEnum.DeleteCourseSuccess: {
+        return adapter.removeOne(action.courseId, state);
+      }
 
-        default: {
-            return state;
-        }
+      default: {
+        return state;
+      }
     }
 }
 
