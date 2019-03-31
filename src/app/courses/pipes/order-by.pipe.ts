@@ -7,8 +7,8 @@ import { Course } from '../models/course.model';
 export class OrderByPipe implements PipeTransform {
 
   transform(value: Array<Course>, fieldName: string): Array<Course> {
-    if (!(value.length && fieldName)) {
-      return value;
+    if (!(value && value.length && fieldName)) {
+      return [];
     }
 
     if (fieldName === 'date') {

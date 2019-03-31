@@ -55,7 +55,6 @@ import { ClickOutsideDirective } from './directives/click-outside.directive';
     CoursesListComponent
   ],
   providers: [
-    FilterPipe,
     CourseService
   ]
 })

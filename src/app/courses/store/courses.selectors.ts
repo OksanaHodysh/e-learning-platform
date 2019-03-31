@@ -18,3 +18,10 @@ export const allCoursesLoaded = createSelector(
   selectCoursesState,
   (({coursesLoaded}) => coursesLoaded)
 );
+
+export const selectSearchedCourses = ((searchTerm: string) => createSelector(
+  selectCourses,
+  (courses) => courses.filter((course) => (
+    course.title.concat(course.description).toLowerCase().indexOf(searchTerm.toLowerCase()) >= 0)
+  )
+));

@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 
 import { Course } from '../models/course.model';
-import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CourseService } from '../services/course.service';
 import { CanComponentDeactivate } from 'src/app/core/guards/can-deactivate.guard';
 import { AppState } from '../../store/app.reducers';

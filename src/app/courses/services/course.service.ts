@@ -11,13 +11,8 @@ export class CourseService {
 
   constructor(private http: HttpClient) { }
 
-  public getCourses(textFragment = '', to: number, from = 0): Observable<Array<Course>> {
-    return this.http.get<Array<Course>>(`${this.API_URL}/courses`, {
-      params: new HttpParams()
-        .set('textFragment', `${textFragment}`)
-        .set('start', `${from}`)
-        .set('count', `${to}`)
-    });
+  public getCourses(): Observable<Array<Course>> {
+    return this.http.get<Array<Course>>(`${this.API_URL}/courses`);
   }
 
   public createCourse(newCourse: Course): Observable<Course> {

@@ -37,6 +37,10 @@ export function coursesReducer(
             return adapter.upsertOne(action.course, state);
         }
 
+        case CoursesActionsEnum.DeleteCourseSuccess: {
+            return adapter.removeOne(action.courseId, state);
+        }
+
         default: {
             return state;
         }
