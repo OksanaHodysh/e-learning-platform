@@ -35,17 +35,4 @@ describe('HeaderComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-
-  it('should logout a user', () => {
-    const logoutBtn = fixture.debugElement.query(By.css('.log-out'));
-    expect(logoutBtn.nativeElement.textContent).toEqual('Log Out');
-    logoutBtn.triggerEventHandler('click', null);
-    expect(serviceSpy.logout).toHaveBeenCalled();
-  });
-
-  it('should display a user login', () => {
-    serviceSpy.getUserInfo.and.returnValue('Test User');
-
-    expect(component.getUserLogin()).toBe('Test User');
-  });
 });

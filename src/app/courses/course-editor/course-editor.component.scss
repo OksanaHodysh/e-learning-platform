@@ -51,11 +51,30 @@
     font-size: 1em;
     padding: 5px;
     margin: 1em 0.5em;
-    &:hover {
+    &:hover:not([disabled]) {
         border: 1px solid #0D5786;
         color: #0D5786;
         font-weight: bold;
         background-color: #ffffff;
         cursor: pointer;
     }
+    &[disabled] {
+        background-color: rgba(13, 87, 134, 0.5);
+    }
+}
+
+.section-name {
+    display: flex;
+    justify-content: space-between;
+}
+
+input.ng-invalid.ng-touched,
+textarea.ng-invalid.ng-touched {
+    border: 1px solid red;
+}
+
+.error-hint {
+    color: red;
+    font-weight: bold;
+    font-size: 0.75em;
 }

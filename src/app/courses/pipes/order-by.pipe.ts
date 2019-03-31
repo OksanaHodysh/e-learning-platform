@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Course } from '../course.model';
+import { Course } from '../models/course.model';
 
 @Pipe({
   name: 'orderBy'
@@ -7,8 +7,8 @@ import { Course } from '../course.model';
 export class OrderByPipe implements PipeTransform {
 
   transform(value: Array<Course>, fieldName: string): Array<Course> {
-    if (!(value.length && fieldName)) {
-      return value;
+    if (!(value && value.length && fieldName)) {
+      return [];
     }
 
     if (fieldName === 'date') {

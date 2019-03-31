@@ -4,8 +4,7 @@
       <input type="text"
         class="search-field"
         placeholder='Search...'
-        (keyup)="findCourses($event.target.value)"
-        [(ngModel)]="searchTerm">
+        [formControl]="searchForm">
     </div>
     <div class="add">
       <button class="add-btn" [routerLink]="['/courses', 'new']">Add Course</button>

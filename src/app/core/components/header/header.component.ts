@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
-import { AuthService } from '../../services/auth.service';
+import { AppState } from 'src/app/store/app.reducers';
+import { Logout } from '../../../login/store/login.actions';
+import { userLogin } from '../../../login/store/login.selectors';
 
 @Component({
   selector: 'app-header',
@@ -11,14 +14,15 @@ import { AuthService } from '../../services/auth.service';
 export class HeaderComponent implements OnInit {
   public userEmail$: Observable<string>;
 
-  constructor(private authService: AuthService) { }
+  constructor(private store: Store<AppState>) { }
 
   ngOnInit() {
-    this.userEmail$ = this.authService.userEmail;
-    this.authService.getUserInfo();
+    this.userEmail$ = this.store.pipe(
+      select(userLogin)
+    );
   }
 
   public logOut(): void {
-    this.authService.logout();
+    this.store.dispatch(new Logout());
   }
 }

@@ -1,5 +1,5 @@
 import { OrderByPipe } from './order-by.pipe';
-import { Course } from '../course.model';
+import { Course } from '../models/course.model';
 
 describe('OrderByPipe', () => {
   let pipe: OrderByPipe;

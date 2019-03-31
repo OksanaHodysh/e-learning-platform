@@ -64,11 +64,26 @@
     font-size: 1em;
     padding: 5px;
     margin: 1em 0;
-    &:hover {
+
+    &:hover:not([disabled]) {
         border: 1px solid #0D5786;
         color: #0D5786;
         font-weight: bold;
         background-color: #ffffff;
         cursor: pointer;
     }
+
+    &[disabled] {
+        background-color: rgba(13, 87, 134, 0.5);
+    }
+}
+
+input.ng-invalid.ng-touched {
+    border: 1px solid red;
+}
+
+.error-hint {
+    color: red;
+    font-size: 0.75em;
+    font-weight: bold;
 }

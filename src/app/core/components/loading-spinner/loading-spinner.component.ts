@@ -15,7 +15,6 @@ export class LoadingSpinnerComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.loaderSubscription = this.loaderService.isLoading.subscribe((data) => {
-      console.log('Loading: ', data);
       this.isLoading = data;
     });
   }

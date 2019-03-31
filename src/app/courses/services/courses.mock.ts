@@ -1,4 +1,4 @@
-import { Course } from '../course.model';
+import { Course } from '../models/course.model';
 
 export let courses: Array<Course> = [
   {
@@ -9,9 +9,8 @@ export let courses: Array<Course> = [
     isTopRated: true,
     authors: [
       {
-        id: 2,
-        firstName: 'Maximilian',
-        lastName: 'Schwarzmüller'
+        id: '2',
+        name: 'Maximilian Schwarzmüller'
       }
     ],
     description: `This course starts from scratch, you neither need to know Angular 1 nor Angular 2!
@@ -27,14 +26,12 @@ export let courses: Array<Course> = [
     isTopRated: true,
     authors: [
       {
-        id: 3,
-        firstName: 'Mosh',
-        lastName: 'Hamedani'
+        id: '3',
+        name: 'Mosh Hamedani'
       },
       {
-        id: 4,
-        firstName: 'Unknown',
-        lastName: 'Assistant'
+        id: '4',
+        name: 'Unknown Assistant'
       }
     ],
     description: `Right from the beginning, you'll jump in and build your first Angular app within minutes.
@@ -49,14 +46,12 @@ export let courses: Array<Course> = [
     isTopRated: false,
     authors: [
       {
-        id: 3,
-        firstName: 'Mosh',
-        lastName: 'Hamedani'
+        id: '3',
+        name: 'Mosh Hamedani'
       },
       {
-        id: 4,
-        firstName: 'Unknown',
-        lastName: 'Assistant'
+        id: '4',
+        name: 'Unknown Assistant'
       }
     ],
     description: `In  just 10 hours, you can learn all the essential Angular concepts! You can simply dedicate
@@ -71,9 +66,8 @@ export let courses: Array<Course> = [
     isTopRated: false,
     authors: [
       {
-        id: 2,
-        firstName: 'Maximilian',
-        lastName: 'Schwarzmüller'
+        id: '2',
+        name: 'Maximilian Schwarzmüller'
       }
     ],
     description: `Create modern, scalable and high-speed Web Applications with Angular and NodeJS + Express + MongoDB.
@@ -88,9 +82,8 @@ export let courses: Array<Course> = [
     isTopRated: false,
     authors: [
       {
-        id: 5,
-        firstName: 'Brad',
-        lastName: 'Traversy'
+        id: '5',
+        name: 'Brad Traversy'
       }
     ],
     description: `This course was crafted to benefit absolutely any level of developer. We will start from scratch and
@@ -106,14 +99,12 @@ export let courses: Array<Course> = [
     isTopRated: false,
     authors: [
       {
-        id: 3,
-        firstName: 'Mosh',
-        lastName: 'Hamedani'
+        id: '3',
+        name: 'Mosh Hamedani'
       },
       {
-        id: 4,
-        firstName: 'Unknown',
-        lastName: 'Assistant'
+        id: '4',
+        name: 'Unknown Assistant'
       }
     ],
     description: `In this course, author of several best selling courses on Udemy takes you from the ground and gives you a
@@ -128,9 +119,8 @@ export let courses: Array<Course> = [
     isTopRated: false,
     authors: [
       {
-        id: 6,
-        firstName: 'Ermin',
-        lastName: 'Kreponic'
+        id: '6',
+        name: 'Ermin Kreponic'
       }
     ],
     description: `If you are looking to advance your skills with Angular 2, then look no further because this course is just right

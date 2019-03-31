@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
 import { DatePickerComponent } from './date-picker.component';
-import { Course } from '../course.model';
+import { Course } from '../models/course.model';
 
 @Component({
   template: `

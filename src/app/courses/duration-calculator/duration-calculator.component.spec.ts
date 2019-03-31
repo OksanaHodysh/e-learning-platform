@@ -5,7 +5,7 @@ import { By } from '@angular/platform-browser';
 
 import { DurationCalculatorComponent } from './duration-calculator.component';
 import { DurationPipe } from '../pipes/duration.pipe';
-import { Course } from '../course.model';
+import { Course } from '../models/course.model';
 
 @Component({
   template: `

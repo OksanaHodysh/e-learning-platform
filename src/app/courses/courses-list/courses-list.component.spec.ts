@@ -7,7 +7,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { CoursesListComponent } from './courses-list.component';
 import { CoursesListItemComponent } from '../courses-list-item/courses-list-item.component';
 import { PaintBorderDirective } from '../directives/paint-border.directive';
-import { Course } from '../course.model';
+import { Course } from '../models/course.model';
 import { OrderByPipe } from '../pipes/order-by.pipe';
 import { DurationPipe } from '../pipes/duration.pipe';
 import { FilterPipe } from '../pipes/filter.pipe';
@@ -68,9 +68,8 @@ describe('CoursesListComponent', () => {
       isTopRated: false,
       authors: [
         {
-          id: 1,
-          firstName: 'John',
-          lastName: 'Doe'
+          id: '1',
+          name: 'John Doe'
         }
       ],
       description: `In this course, author of several best selling courses on Udemy takes you from the ground and gives you a
@@ -93,20 +92,17 @@ describe('CoursesListComponent', () => {
     it('should initialize data properly', () => {
       expect(component.limit).toBe(5);
       expect(component.step).toBe(5);
-      expect(component.searchTerm).toBe('');
       expect(serviceSpy.getCourses).toHaveBeenCalled();
     });
 
     it('should find courses if there are any', () => {
       const searchBtn = fixture.debugElement.query(By.css('.search-btn'));
-      component.searchTerm = 'Jasmine';
       searchBtn.triggerEventHandler('click', null);
       expect(component.courses[0].title).toEqual(searchResult[0].title);
     });
 
     it('should return emty array if no matches found', () => {
       const searchBtn = fixture.debugElement.query(By.css('.search-btn'));
-      component.searchTerm = 'React';
       searchBtn.triggerEventHandler('click', null);
       expect(component.courses).toEqual([]);
     });
@@ -160,7 +156,6 @@ describe('CoursesListComponent', () => {
     it('should initialize data properly', () => {
       expect(component.limit).toBe(5);
       expect(component.step).toBe(5);
-      expect(component.searchTerm).toBe('');
       expect(component.courses).toEqual([]);
       expect(serviceSpy.getCourses).toHaveBeenCalled();
     });

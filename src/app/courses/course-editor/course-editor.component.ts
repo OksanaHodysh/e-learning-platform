@@ -1,10 +1,16 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
+import { select, Store } from '@ngrx/store';
 
-import { Course } from '../course.model';
-import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { CourseService } from '../services/course.service';
+import { Course } from '../models/course.model';
 import { CanComponentDeactivate } from 'src/app/core/guards/can-deactivate.guard';
+import { AppState } from '../../store/app.reducers';
+import { CancelEditCourse, CreateCourse, UpdateCourse } from '../store/courses.actions';
+import { Author } from '../models/author.model';
+import { LoadAuthors } from '../store/authors.actions';
+import { selectAuthors } from '../store/authors.selectors';
 
 @Component({
   selector: 'app-course-editor',
@@ -16,11 +22,13 @@ export class CourseEditorComponent implements OnInit, CanComponentDeactivate {
   public newCourse: Course;
   public editedCourse: Course;
   public isSaved: boolean;
+  public courseForm: FormGroup;
+  public authors$: Observable<Array<Author>>;
 
   constructor(
+    private formBuilder: FormBuilder,
     private route: ActivatedRoute,
-    private router: Router,
-    private courseService: CourseService
+    private store: Store<AppState>
   ) { }
 
   ngOnInit() {
@@ -34,60 +42,55 @@ export class CourseEditorComponent implements OnInit, CanComponentDeactivate {
           this.newCourse = { ...course };
         }
     });
+    this.courseForm = this.createForm();
+
+    this.store.dispatch(new LoadAuthors());
+
+    this.authors$ = this.store.pipe(
+      select(selectAuthors)
+    );
   }
 
-  public get authors(): string {
-    return this.newCourse.authors
-      .map(({firstName, lastName}) => lastName ?
-        `${firstName} ${lastName}` :
-        firstName)
-      .join(', ');
+  public createForm(): FormGroup {
+    return this.formBuilder.group({
+      title: [this.newCourse.title, [Validators.required, Validators.maxLength(50)]],
+      description: [this.newCourse.description, [Validators.required, Validators.maxLength(500)]],
+      date: [this.newCourse.date.slice(0, 10)],
+      duration: [this.newCourse.duration],
+      authors: [this.newCourse.authors]
+    });
+  }
+  public get title(): FormControl {
+    return <FormControl>this.courseForm.get('title');
   }
 
-  public set authors(value: string) {
-    this.newCourse.authors = value.split(',')
-      .map((author: string) => {
-        const [firstName = '', lastName = ''] = author.trim().split(' ').map((item) => item && item.trim());
+  public get description(): FormControl {
+    return <FormControl>this.courseForm.get('description');
+  }
 
-        return {
-          id: Math.floor(Math.random() * Date.now()),
-          firstName,
-          lastName
-        };
-      });
+  public get authors(): FormControl {
+    return <FormControl>this.courseForm.get('authors');
   }
 
   public saveCourse(): void {
-    console.log('Changes saved successfully.');
-    console.log(this.newCourse);
+    const newCourse = {...this.newCourse, ...this.courseForm.value};
+    console.log(newCourse);
     this.editedCourse ?
-      this.courseService.updateCourse(this.editedCourse, this.newCourse) :
-      this.courseService.createCourse(this.newCourse);
+      this.store.dispatch(new UpdateCourse(newCourse)) :
+      this.store.dispatch(new CreateCourse(newCourse));
 
     this.isSaved = true;
-
-    this.router.navigate(['/courses']);
   }
 
   public returnToCourses(): void {
-    this.router.navigate(['/courses']);
-  }
-
-  public setNewDate(newDate: string): void {
-    console.log(newDate);
-    this.newCourse.date = newDate;
-  }
-
-  public setDuration(newDuration: number): void {
-    console.log(newDuration);
-    this.newCourse.duration = newDuration;
+    this.store.dispatch(new CancelEditCourse());
   }
 
   public canDeactivate(): Observable<boolean> | Promise<boolean> | boolean {
     const unsavedChanges = !this.isSaved &&
       this.editedCourse &&
-      Object.keys(this.editedCourse).some((key: string) => {
-        return this.editedCourse[key] !== this.newCourse[key];
+      Object.keys(this.courseForm.value).some((key: string) => {
+        return this.courseForm.value[key] !== this.newCourse[key];
     });
 
     return unsavedChanges ?

@@ -1,0 +1,31 @@
+<div class="section">
+  <div class="section-name">
+    <label for="authors">Authors:</label>
+    <div *ngIf="showError"
+        class="error-hint">
+        <span>
+          Author is required .
+        </span>
+    </div>
+  </div>
+  {{searchTerm}}
+  <div class="tags-container"
+      [ngClass]="{'is-empty': showError}"
+      (appClickOutside)="showSuggestions($event)">
+    <div class="tag" *ngFor="let author of value">
+      <span class="tag-label">{{author.name}}</span>
+      <span class="tag-close" (click)="removeAuthor(author)">&#x2716;</span>
+    </div>
+    <input type="text"
+        id="authors"
+        class="tag-search"
+        autocomplete="off"
+        (blur)="onTouched()"
+        [(ngModel)]="searchTerm"
+        (click)="showSuggestions(true)">
+    <div class="search-results" *ngIf="openSuggestions">
+      <div class="search-result" *ngFor="let author of authors | filterAuthors : value : searchTerm"
+          (click)="addAuthor(author)">{{author.name}}</div>
+    </div>
+  </div>
+</div>

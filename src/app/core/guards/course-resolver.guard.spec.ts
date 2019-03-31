@@ -4,7 +4,7 @@ import { Observable, of, EMPTY } from 'rxjs';
 
 import { CourseResolverGuard } from './course-resolver.guard';
 import { CourseService } from '../../courses/services/course.service';
-import { Course } from 'src/app/courses/course.model';
+import { Course } from 'src/app/courses/models/course.model';
 
 const mockActivatedRoute = {
   paramMap: {
